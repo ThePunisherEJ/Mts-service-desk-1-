@@ -1,0 +1,151 @@
+﻿@inherits DynamicNavMenuBase
+
+<div class="top-row pl-4 navbar navbar-dark">
+    <a class="navbar-brand" href="">BlazorAppSubmenu</a>
+    <button class="navbar-toggler" @onclick="ToggleNavMenu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</div>
+
+<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+    <ul class="nav flex-column">
+        @foreach (DynMenuItem mnu in fullMenu.Where(m => m.ParentID == 0).ToList())
+        {
+
+            @if (mnu.IsLeaf) //Root Level Leaf Item
+            {
+                @if (mnu.AllowAnonymous)
+                {
+                    <li class="nav-item px-3">
+                        <NavLink class="nav-link" href=@mnu.NavTo Match="NavLinkMatch.All" @onclick="() => activeParentID = mnu.ParentID">
+                            <span>@mnu.Name </span>
+                        </NavLink>
+                    </li>
+                }
+                else
+                {
+                    if (mnu.RequiredPermissions == "")
+                    {
+
+                        <AuthorizeView>
+                            <li class="nav-item px-3">
+                                <NavLink class="nav-link" href=@mnu.NavTo Match="NavLinkMatch.All" @onclick="() => activeParentID = mnu.ParentID">
+                                    <span>@mnu.Name </span>
+                                </NavLink>
+                            </li>
+                        </AuthorizeView>
+                    }
+                    else
+                    {
+                        <AuthorizeView Roles=@mnu.RequiredPermissions>
+                            <li class="nav-item px-3">
+                                <NavLink class="nav-link" href=@mnu.NavTo Match="NavLinkMatch.All" @onclick="() => activeParentID = mnu.ParentID">
+                                    <span>@mnu.Name </span>
+                                </NavLink>
+                            </li>
+                        </AuthorizeView>
+                    }
+                }
+            }
+            else //Root Level NOT Leaf Item
+            {
+                <li class="nav-item px-3">
+                    @if (mnu.AllowAnonymous)
+                    {
+                        <NavLinkPreventDefault class="nav-link" href="blah" @onclick="() => MenuOnClick(mnu.ID)">
+                            @if (expandSubNavDict[mnu.ID])
+                            {
+                                <span class="oi oi-chevron-bottom" aria-hidden="true"></span> @mnu.Name
+                            }
+                            else
+                            {
+                                <span class="oi oi-chevron-right" aria-hidden="true"></span> @mnu.Name
+                            }
+                        </NavLinkPreventDefault>
+                    }
+                    else
+                    {
+                        if (mnu.RequiredPermissions == "")
+                        {
+
+                            <AuthorizeView>
+                                <NavLinkPreventDefault class="nav-link" href="blah" @onclick="() => MenuOnClick(mnu.ID)">
+                                    @if (expandSubNavDict[mnu.ID])
+                                    {
+                                        <span class="oi oi-chevron-bottom" aria-hidden="true"></span> @mnu.Name
+                                    }
+                                    else
+                                    {
+                                        <span class="oi oi-chevron-right" aria-hidden="true"></span> @mnu.Name
+                                    }
+                                </NavLinkPreventDefault>
+                            </AuthorizeView>
+                        }
+                        else
+                        {
+                            <AuthorizeView Roles=@mnu.RequiredPermissions>
+                                <NavLinkPreventDefault class="nav-link" href="blah" @onclick="() => MenuOnClick(mnu.ID)">
+                                    @if (expandSubNavDict[mnu.ID])
+                                    {
+                                        <span class="oi oi-chevron-bottom" aria-hidden="true"></span> @mnu.Name
+                                    }
+                                    else
+                                    {
+                                        <span class="oi oi-chevron-right" aria-hidden="true"></span> @mnu.Name
+                                    }
+                                </NavLinkPreventDefault>
+                            </AuthorizeView>
+                        }
+                    }
+
+                    @if (expandSubNavDict[mnu.ID])
+                    {
+
+                        @foreach (DynMenuItem mnuSub in fullMenu.Where(m => m.ParentID == mnu.ID).ToList())
+                        {
+
+                            @if (mnuSub.AllowAnonymous)
+                            {
+                            <li class="nav-item px-3">
+                                <NavLink class="nav-link" href=@mnuSub.NavTo Match="NavLinkMatch.All" @onclick="() => activeParentID = mnuSub.ParentID">
+                                    <span>@mnuSub.Name</span>
+                                </NavLink>
+                            </li>
+                        }
+                        else
+                        {
+                            if (mnuSub.RequiredPermissions == "")
+                            {
+
+                                <AuthorizeView>
+                                    <li class="nav-item px-3">
+                                        <NavLink class="nav-link" href=@mnuSub.NavTo Match="NavLinkMatch.All" @onclick="() => activeParentID = mnuSub.ParentID">
+                                            <span>@mnuSub.Name </span>
+                                        </NavLink>
+                                    </li>
+                                </AuthorizeView>
+                            }
+                            else
+                            {
+                                <AuthorizeView Roles=@mnuSub.RequiredPermissions>
+                                    <li class="nav-item px-3">
+                                        <NavLink class="nav-link" href=@mnuSub.NavTo Match="NavLinkMatch.All" @onclick="() => activeParentID = mnuSub.ParentID">
+                                            <span>@mnuSub.Name </span>
+                                        </NavLink>
+                                    </li>
+                                </AuthorizeView>
+                            }
+                        }
+                        }
+
+
+                    }
+                    </li>
+                }
+
+
+
+        }
+    </ul>
+</div>
+

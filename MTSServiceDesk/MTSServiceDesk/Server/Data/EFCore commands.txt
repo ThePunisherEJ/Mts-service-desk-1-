@@ -1,0 +1,5 @@
+﻿
+
+Scaffold-DbContext "Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=MTSServiceDesk;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -ContextDir Data -Force -Context ApplicationDBContext -Tables "AspNetUsers", "UserStatus", "SupportClient", "Status"  -UseDatabaseNames
+
+
