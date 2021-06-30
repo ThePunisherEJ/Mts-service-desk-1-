@@ -7,13 +7,37 @@
     <DynamicNavMenu />
 </div>
 
-<div class="main">
-    @*<div class="top-row px-4">
-            <a href="http://blazor.net" target="_blank" class="ml-md-auto">About</a>
-        </div>*@
+<!--<div class="main">-->
+@*<div class="top-row px-4">
+        <a href="http://blazor.net" target="_blank" class="ml-md-auto">About</a>
+    </div>*@
 
-    <div class="top-row">
+<!--<div class="top-row">
         <button type="button" class="btn btn-link ml-md-auto" @onclick="@LogoutClick">Logout</button>
+    </div>
+
+    <div class="content px-4">
+        @Body
+    </div>
+</div-->
+>
+
+<div class="main">
+    <div class="top-row">
+        <AuthorizeView>
+            <Authorized>
+
+                Hello @context.User.Identity.Name
+
+                <button type="button" class="btn btn-link ml-md-auto" @onclick="@LogoutClick">Logout</button>
+
+            </Authorized>
+            <NotAuthorized>
+                <button type="button" class="btn btn-link ml-md-auto" @onclick="@ShowLoginModal">Login</button>
+
+            </NotAuthorized>
+        </AuthorizeView>
+
     </div>
 
     <div class="content px-4">
@@ -21,17 +45,32 @@
     </div>
 </div>
 
-
 @functions{
+    [CascadingParameter] public IModalService Modal { get; set; }
+
     [CascadingParameter]
     Task<AuthenticationState> AuthenticationState { get; set; }
-    protected override async Task OnParametersSetAsync()
+    //protected override async Task OnParametersSetAsync()
+    //{
+    //    if (!(await AuthenticationState).User.Identity.IsAuthenticated)
+    //    {
+    //        navigationManager.NavigateTo("/login");
+    //    }
+    //}
+
+    void ShowLoginModal()
     {
-        if (!(await AuthenticationState).User.Identity.IsAuthenticated)
+        var options = new ModalOptions()
         {
-            navigationManager.NavigateTo("/login");
-        }
+
+            //Class = "blazored-custom-modal"
+
+        };
+
+        Modal.Show<Pages.Authentication.Login>("", options);
     }
+
+
     async Task LogoutClick()
     {
         await authStateProvider.Logout();
