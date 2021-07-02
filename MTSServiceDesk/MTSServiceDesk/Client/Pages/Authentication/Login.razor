@@ -1,5 +1,6 @@
 ﻿@page "/login"
 @layout AuthLayout
+@inherits LoginBase
 @inject NavigationManager navigationManager
 @inject CustomStateProvider authStateProvider
 
@@ -34,21 +35,21 @@
 
 @code{
 
-    LoginRequest loginRequest { get; set; } = new LoginRequest();
-    string error { get; set; }
-    
+    //LoginRequest loginRequest { get; set; } = new LoginRequest();
+    //string error { get; set; }
 
-    async Task OnSubmit()
-    {
-        error = null;
-        try
-        {
-            await authStateProvider.Login(loginRequest);
-            navigationManager.NavigateTo("");
-        }
-        catch (Exception ex)
-        {
-            error = ex.Message;
-        }
-    }
+
+    //async Task OnSubmit()
+    //{
+    //    error = null;
+    //    try
+    //    {
+    //        await authStateProvider.Login(loginRequest);
+    //        navigationManager.NavigateTo("");
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        error = ex.Message;
+    //    }
+    //} 
 }
