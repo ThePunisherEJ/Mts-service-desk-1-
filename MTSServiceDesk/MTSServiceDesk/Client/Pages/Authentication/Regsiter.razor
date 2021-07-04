@@ -4,25 +4,28 @@
 @inject NavigationManager navigationManager
 @inject CustomStateProvider authStateProvider
 
-<h1 class="h2 font-weight-normal login-title">
-    Register
+<h1 style ="text-align: center" ;class="h2 font-weight-bold login-title">
+    REGISTER
 </h1>
+<br/>
 
 <EditForm class="form-signin" OnValidSubmit="OnSubmit" Model="registerRequest">
     <DataAnnotationsValidator />
 
     <label for="inputUsername" class="sr-only">User Name</label>
     <InputText id="inputUsername" class="form-control" placeholder="Username" autofocus @bind-Value="@registerRequest.UserName" />
+    <br/>
     <ValidationMessage For="@(() => registerRequest.UserName)" />
 
     <label for="inputPassword" class="sr-only">Password</label>
     <InputText type="password" id="inputPassword" class="form-control" placeholder="Password" @bind-Value="@registerRequest.Password" />
+    <br/>
     <ValidationMessage For="@(() => registerRequest.Password)" />
 
     <label for="inputPasswordConfirm" class="sr-only">Password Confirmation</label>
     <InputText type="password" id="inputPasswordConfirm" class="form-control" placeholder="Password Confirmation" @bind-Value="@registerRequest.PasswordConfirm" />
     <ValidationMessage For="@(() => registerRequest.PasswordConfirm)" />
-
+    <br/>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Create account</button>
 
     <label class="text-danger">@error</label>
