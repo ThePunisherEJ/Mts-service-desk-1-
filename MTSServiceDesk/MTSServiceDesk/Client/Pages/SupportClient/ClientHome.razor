@@ -1,7 +1,7 @@
 ﻿@page "/SupportClientsHome"
 @inject HttpClient httpClient
 
-<h3>TestClient</h3>
+<h3>Client Home</h3>
 
 @if (clients == null)
 {
@@ -9,13 +9,16 @@
 }
 else
 {
+    
     <table class="table">
         <thead>
+            
             <tr>
                 <th>ID</th>
                 <th>Name</th>
                 <th>Domain</th>
                 <th>Status</th>
+                <th><button style="float:right">NEW CLIENT</button></th>
 
             </tr>
         </thead>
@@ -27,6 +30,7 @@ else
                 <td>@client.Name</td>
                 <td>@client.DomainName</td>
                 <td>@client.StatusDescription</td>
+                <td><button style="float:right">EDIT</button></td>
 
 
 
