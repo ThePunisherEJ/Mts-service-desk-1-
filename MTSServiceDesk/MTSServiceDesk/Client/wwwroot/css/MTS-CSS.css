@@ -1,0 +1,201 @@
+﻿
+[class*="MTS-CSS-button-"] {
+    border-color: black;
+    border-width: 0.5px;
+    border-radius: 0%;
+    font-weight: bold;
+}
+
+
+.MTS-CSS-button-variant-01 {
+    background-image: linear-gradient(to right, rgb(55, 39, 77), rgb(0, 167, 157));
+}
+
+    .MTS-CSS-button-variant-01:hover, .MTS-CSS-button-variant-01:focus {
+        box-shadow: 0 0 10px rgb(0, 167, 157);
+    }
+
+
+.MTS-CSS-button-variant-02 {
+    background-image: linear-gradient(to right, rgb(55, 39, 77), rgb(60, 90, 108));
+}
+
+    .MTS-CSS-button-variant-02:hover, .MTS-CSS-button-variant-02:focus {
+        box-shadow: 0 0 10px rgb(55, 39, 77);
+    }
+
+
+.MTS-CSS-button-variant-03 {
+    background-image: linear-gradient(to right, rgb(60, 90, 108), rgb(55, 39, 77));
+}
+
+    .MTS-CSS-button-variant-03:hover, .MTS-CSS-button-variant-03:focus {
+        box-shadow: 0 0 10px rgb(0, 167, 157);
+    }
+
+
+.MTS-CSS-button-variant-04 {
+    background-image: linear-gradient(to right, rgb(55, 39, 77), red);
+}
+
+    .MTS-CSS-button-variant-04:hover, .MTS-CSS-button-variant-04:focus {
+        box-shadow: 0 0 10px red;
+    }
+
+/*#endregion */
+
+
+/*#region Drop-Down List */
+
+.MTS-CSS-dropDownList {
+    border-radius: 0%;
+}
+
+    .MTS-CSS-dropDownList:hover, .MTS-CSS-dropDownList:focus {
+        box-shadow: 0 0 10px rgb(0, 167, 157);
+    }
+
+/*#endregion */
+
+
+/*#region InputText */
+
+.MTS-CSS-inputText {
+    border-radius: 0%;
+    border-style: solid;
+    border-width: 0.5px;
+    border-color: black;
+}
+
+    .MTS-CSS-inputText:focus {
+        box-shadow: 0 0 10px rgb(0, 167, 157);
+    }
+
+/*#endregion */
+
+
+/*#region Labels */
+
+[class*="MTS-CSS-label-"] {
+}
+/*#endregion */
+
+
+/*#region NavLink */
+
+[class*="MTS-CSS-navLink-"] {
+}
+
+.MTS-CSS-navLink-variant-01 {
+    background: -webkit-linear-gradient(rgb(55, 39, 77), rgb(0, 167, 157));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/*#endregion */
+
+
+/*#region Tables */
+
+.MTS-CSS-tableHead {
+    background-image: linear-gradient(to right, rgb(55, 39, 77), rgb(0, 167, 157));
+    border-bottom-style: solid;
+    border-bottom-color: whitesmoke;
+    border-bottom-width: 2.5px;
+    color: white;
+}
+
+
+.MTS-CSS-tableVerticalBorder {
+    border-right: solid;
+    border-right-width: 2.5px;
+    border-color: whitesmoke;
+}
+
+
+.MTS-CSS-tableRow {
+    border-top-style: double;
+    border-top-width: 1px;
+    border-top-color: black;
+}
+
+    .MTS-CSS-tableRow:hover {
+        background-color: lightgray;
+    }
+
+/*#endregion */
+
+
+/*#region Media Queries */
+
+@media only screen and (max-width: 992px) {
+    [class*="MTS-CSS-button-"], [class*="MTS-CSS-label-"], [class*="MTS-CSS-navLink-"], .MTS-CSS-dropDownList, .MTS-CSS-inputText, .MTS-CSS-tableHead, .MTS-CSS-tableRow {
+        font-size: 12px;
+    }
+
+    .MTS-CSS-editForm {
+        padding-left: 30%;
+        padding-right: 30%;
+    }
+}
+
+
+@media only screen and (max-width: 768px) {
+    [class*="MTS-CSS-button-"], [class*="MTS-CSS-label-"], [class*="MTS-CSS-navLink-"], .MTS-CSS-dropDownList, .MTS-CSS-inputText, .MTS-CSS-tableHead, .MTS-CSS-tableRow {
+        font-size: 11px;
+    }
+
+    .MTS-CSS-editForm {
+        padding-left: 21%;
+        padding-right: 21%;
+    }
+}
+
+
+@media only screen and (max-width: 576px) {
+    [class*="MTS-CSS-button-"], [class*="MTS-CSS-label-"], [class*="MTS-CSS-navLink-"], .MTS-CSS-dropDownList, .MTS-CSS-inputText, .MTS-CSS-tableHead, .MTS-CSS-tableRow {
+        font-size: 10px;
+    }
+
+    .MTS-CSS-editForm {
+        padding-left: 13%;
+        padding-right: 13%;
+    }
+}
+
+
+/*#endregion */
+
+
+.main {
+    background-color: whitesmoke;
+}
+
+
+.MTS-CSS-confirmationModal {
+    height: 350px;
+    width: 250px;
+    z-index: 102;
+    background-color: whitesmoke;
+    display: flex;
+    flex-direction: column;
+    padding-left: 1.5%;
+    padding-right: 1.5%;
+    padding-top: 0.5%;
+    border-style: solid;
+    border-width: 0px;
+    box-shadow: 0 0 5px 1px black;
+}
+
+
+.MTS-CSS-editForm {
+    padding-left: 37.5%;
+    padding-right: 37.5%;
+}
+
+
+.MTS-CSS-logo {
+    width: 50px;
+    height: 50px;
+    border: none;
+}
