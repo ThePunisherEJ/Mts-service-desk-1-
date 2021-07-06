@@ -199,3 +199,26 @@
     height: 50px;
     border: none;
 }
+
+.table{
+
+}
+#t-head {
+    background-image: linear-gradient(to right, rgb(55, 39, 77), rgb(0, 167, 157));
+    border-bottom-style: solid;
+    border-bottom-color: whitesmoke;
+    border-bottom-width: 2.5px;
+    color: white;
+}
+
+.button {
+ 
+color: white;
+font-family:Arial;
+
+    
+}
+.button1 {
+    background-image: linear-gradient(to right, rgb(55, 39, 77), rgb(60, 90, 108));
+    box-shadow: 0 0 10px rgb(55, 39, 77);
+}
