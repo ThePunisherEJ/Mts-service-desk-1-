@@ -1,0 +1,51 @@
+﻿@page "/SupportClientsHome"
+@inject HttpClient httpClient
+
+@inherits ClientHomeBase
+
+<h3> <strong>Client Home</strong></h3>
+
+@if (clients == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <link href="css/MTS-CSS.css" rel="stylesheet" />
+    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/app.css" rel="stylesheet" />
+    <link href="_content/Blazored.Modal/blazored-modal.css" rel="stylesheet" />
+    <table class="table">
+        <thead class="MTS-CSS-tableHead">
+            
+            <tr class="table-row">
+                
+                <th>ID</th>
+                <th>Name</th>
+                <th>Domain</th>
+                <th>Status</th>
+                <th><button class="MTS-CSS-button-variant-01 text-white" style="float:right">ADD NEW</button></th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var client in clients)
+            {
+                <tr>
+                    <td>@client.Id</td>
+                    <td>@client.Name</td>
+                    <td>@client.DomainName</td>
+                    <td>@client.StatusDescription</td>
+                    <td><button class="MTS-CSS-button-variant-01 text-white" style="float:right">EDIT</button></td>
+
+
+
+
+
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
