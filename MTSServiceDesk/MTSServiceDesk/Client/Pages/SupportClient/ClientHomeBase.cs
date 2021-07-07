@@ -11,12 +11,12 @@ namespace MTS.ServiceDesk.Client.Pages.SupportClient
 {
     public class ClientHomeBase : ComponentBase
     {
-        protected SupportClientDetails[] clients;
+        protected List<SupportClientDetails>  clients;
         [Inject] protected HttpClient httpClient { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
-            clients = await httpClient.GetFromJsonAsync<SupportClientDetails[]>("api/SupportClient/Get-All");
+            clients = await httpClient.GetFromJsonAsync <List <SupportClientDetails>>("api/SupportClient/Get-All");
 
             //return base.OnInitializedAsync();
         }
