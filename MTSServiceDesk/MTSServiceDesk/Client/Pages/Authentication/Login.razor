@@ -11,47 +11,29 @@
 
 <EditForm class="form-signin" OnValidSubmit="OnSubmit" Model="loginRequest">
     <DataAnnotationsValidator />
-    
-    <label for="inputUsername" class="sr-only">User Name</label>
-    <InputText style ="text-align: center" id="inputUsername" class="form-control" @bind-Value="loginRequest.UserName" autofocus placeholder="Username" />
-    <br/>
+    <div class= "MTS-CSS-inputText focus">
+        <label for="inputUsername" class="sr-only">User Name</label>
+        <InputText style="text-align: center" id="inputUsername" class="form-control" @bind-Value="loginRequest.UserName" autofocus placeholder="Username" />
+    </div>
+        <br/>
     <ValidationMessage For="@(() => loginRequest.UserName)" />
 
-    <label for="inputPassword" class="sr-only">Password</label>
-    <InputText style ="text-align: center" type="password" id="inputPassword" class="form-control" placeholder="Password" @bind-Value="loginRequest.Password" />
-    <ValidationMessage For="@(() => loginRequest.Password)" />
+    <div class= "MTS-CSS-inputText focus">
+        <label for="inputPassword" class="sr-only">Password</label>
+        <InputText style="text-align: center" type="password" id="inputPassword" class="form-control" placeholder="Password" @bind-Value="loginRequest.Password" />
+    </div>
+        <ValidationMessage For="@(() => loginRequest.Password)" />
 
     <div class="form-check m-3">
         <InputCheckbox style="text-align: left"id="inputRememberMe" class="form-check-input" @bind-Value="@loginRequest.RememberMe" />
-        <label class="form-check-label" for="inputRememberMe">Remember Me</label>
+        <label class="form-check-label align-content-center" for="inputRememberMe">Remember Me</label>
     </div>
 
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    <button class="btn btn-lg btn-primary btn-block MTS-CSS-button-variant-01" type="submit">Sign in</button>
 
     <label class="text-danger">@error</label>
 
     <NavLink href="register">
-        <h6 class="font-weight-normal text-center">Create account</h6>
+        <h6 style="color:rgb(55, 39, 77)"; class="font-weight-normal text-center">Create account</h6>
     </NavLink>
 </EditForm>
-
-@code{
-
-    //LoginRequest loginRequest { get; set; } = new LoginRequest();
-    //string error { get; set; }
-
-
-    //async Task OnSubmit()
-    //{
-    //    error = null;
-    //    try
-    //    {
-    //        await authStateProvider.Login(loginRequest);
-    //        navigationManager.NavigateTo("");
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        error = ex.Message;
-    //    }
-    //} 
-}
