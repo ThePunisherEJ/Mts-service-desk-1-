@@ -1,0 +1,28 @@
+﻿@page "/newclient"
+<h3 ><strong>New Client</strong></h3>
+<br />
+<EditForm Model="add" OnValidSubmit="Create">
+    <DataAnnotationsValidator />
+    <label style="display: inline-block; text-align: right">Name</label>
+    <InputText class="MTS-CSS-inputText" placeholder="Name" @bind-Value="add.Name" />
+    <ValidationMessage For="@(() => add.Name)" />
+
+    <br />
+    <label style="display:inline-block; text-align:right">Domain Name</label>
+    <InputText class="MTS-CSS-inputText" placeholder="Domain Name" @bind-Value="add.DomainName" />
+    <ValidationMessage For="@(() => add.DomainName)" />
+    <br />
+    <button class="MTS-CSS-button-variant-01 text-white" type="submit">Save</button>
+    <button class="MTS-CSS-button-variant-01 text-white" type="submit">Cancel</button>
+
+</EditForm>
+
+@code{
+
+    private AddNew add = new AddNew();
+    private void Create()
+    {
+        Console.WriteLine(add.Name);
+    }
+
+}
