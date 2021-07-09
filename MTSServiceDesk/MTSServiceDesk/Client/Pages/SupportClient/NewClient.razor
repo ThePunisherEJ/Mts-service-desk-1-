@@ -2,18 +2,21 @@
 @inherits NewClientBase
 <h3 ><strong>New Client</strong></h3>
 <br />
-<EditForm Model="add" OnValidSubmit="Create">
+<EditForm  Model="add" OnValidSubmit="Create">
     <DataAnnotationsValidator />
-    <label style="display: inline-block; text-align: right">Name</label>
+    <label style="display: inline-block; text-align: right">Name</label><br />
     <InputText class="MTS-CSS-inputText" placeholder="Name" @bind-Value="add.Name" />
+
     <ValidationMessage For="@(() => add.Name)" />
 
     <br />
-    <label style="display:inline-block; text-align:right">Domain Name</label>
+    <label class="col-form-label" style="display:inline-block; text-align:right">Domain Name</label><br />
     <InputText class="MTS-CSS-inputText" placeholder="Domain Name" @bind-Value="add.DomainName" />
     <ValidationMessage For="@(() => add.DomainName)" />
     <br />
-    <button class="MTS-CSS-button-variant-01 text-white" type="submit"  @onclick="@ShowConfirmationModal">Save</button>
+    <br />
+    <button class="MTS-CSS-button-variant-01 text-white" type="submit"  @onclick="@ShowConfirmationModal">Save</button> 
+   
     <button class="MTS-CSS-button-variant-01 text-white" type="submit" @onclick="@NewClientCancel">Cancel</button>
 
 </EditForm>
