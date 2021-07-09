@@ -11,6 +11,7 @@ namespace MTS.ServiceDesk.Client.Pages.SupportClient
 {
     public class NewClientBase : ComponentBase
     {
+        [Inject] protected NavigationManager navigationManager { get; set; }
         protected AddNew add = new AddNew();
         protected void Create()
         {
@@ -30,6 +31,10 @@ namespace MTS.ServiceDesk.Client.Pages.SupportClient
 
             Modal.Show<Shared.ModalConfirmation>("", options);
 
+        }
+        protected void NewClientCancel()
+        {
+            navigationManager.NavigateTo("SupportClientsHome");
         }
     }
 }

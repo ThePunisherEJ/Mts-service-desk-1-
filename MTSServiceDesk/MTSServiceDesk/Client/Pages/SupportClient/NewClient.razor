@@ -14,7 +14,7 @@
     <ValidationMessage For="@(() => add.DomainName)" />
     <br />
     <button class="MTS-CSS-button-variant-01 text-white" type="submit"  @onclick="@ShowConfirmationModal">Save</button>
-    <button class="MTS-CSS-button-variant-01 text-white" type="submit">Cancel</button>
+    <button class="MTS-CSS-button-variant-01 text-white" type="submit" @onclick="@NewClientCancel">Cancel</button>
 
 </EditForm>
 
