@@ -12,7 +12,7 @@
     <InputText class="MTS-CSS-inputText" placeholder="Domain Name" @bind-Value="add.DomainName" />
     <ValidationMessage For="@(() => add.DomainName)" />
     <br />
-    <button class="MTS-CSS-button-variant-01 text-white" type="submit">Save</button>
+    <button class="MTS-CSS-button-variant-01 text-white" type="submit"  @onclick="@ShowConfirmationModal">Save</button>
     <button class="MTS-CSS-button-variant-01 text-white" type="submit">Cancel</button>
 
 </EditForm>
@@ -24,5 +24,21 @@
     {
         Console.WriteLine(add.Name);
     }
+    [CascadingParameter] public IModalService Modal { get; set; }
+
+
+    void ShowConfirmationModal()
+    {
+        var options = new ModalOptions()
+        {
+
+            
+
+        };
+
+        Modal.Show<Shared.ModalConfirmation>("", options);
+       
+    }
 
 }
+

@@ -13,12 +13,18 @@ namespace MTS.ServiceDesk.Client.Pages.SupportClient
     {
         protected List<SupportClientDetails>  clients;
         [Inject] protected HttpClient httpClient { get; set; }
+        [Inject] protected NavigationManager navigationManager { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
             clients = await httpClient.GetFromJsonAsync <List <SupportClientDetails>>("api/SupportClient/Get-All");
 
+
             //return base.OnInitializedAsync();
+        }
+        protected void NewClientClick()
+        {
+            navigationManager.NavigateTo("newclient");
         }
     }
 }
