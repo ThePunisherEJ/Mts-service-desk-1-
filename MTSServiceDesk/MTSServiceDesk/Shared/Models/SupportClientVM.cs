@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace MTS.ServiceDesk.Shared.Models
@@ -18,10 +19,13 @@ namespace MTS.ServiceDesk.Shared.Models
     public class SupportClientCreateUpdateRequest
     {
         public int Id { get; set; }
+        [Required]
         public string Name { get; set; }
         public byte[] Logo { get; set; }
+        [Required]
         public string DomainName { get; set; }
         public int StatusId { get; set; }
 
+        
     }
 }

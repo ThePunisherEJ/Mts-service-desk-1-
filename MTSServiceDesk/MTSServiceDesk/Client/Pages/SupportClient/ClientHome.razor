@@ -37,7 +37,7 @@ else
                     <td>@client.Name</td>
                     <td>@client.DomainName</td>
                     <td>@client.StatusDescription</td>
-                    <td><button class="MTS-CSS-button-variant-01 text-white" style="float:right">EDIT</button></td>
+                    <td><button class="MTS-CSS-button-variant-01 text-white" style="float:right" @onclick="()=>UpdateClientClick(client.Id)" >EDIT</button></td>
 
 
 

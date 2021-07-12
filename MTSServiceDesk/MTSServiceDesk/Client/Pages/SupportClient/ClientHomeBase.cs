@@ -24,7 +24,11 @@ namespace MTS.ServiceDesk.Client.Pages.SupportClient
         }
         protected void NewClientClick()
         {
-            navigationManager.NavigateTo("newclient");
+            navigationManager.NavigateTo("CreateUpdateClient/0");
+        }
+        protected void UpdateClientClick(int clientID)
+        {
+            navigationManager.NavigateTo("CreateUpdateClient/" + clientID.ToString());
         }
     }
 }

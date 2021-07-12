@@ -1,0 +1,49 @@
+﻿@page "/CreateUpdateClient/{Id:int}"
+@inherits CreateUpdateClientBase
+<h3 ><strong>New Client</strong></h3>
+<br />
+<EditForm Model="ClientRequest" OnValidSubmit="ShowConfirmationModal">
+    <DataAnnotationsValidator />
+    <label style="display: inline-block; text-align: right">Name</label><br />
+    <InputText class="MTS-CSS-inputText form-control" placeholder="Name" @bind-Value="ClientRequest.Name" />
+
+    <ValidationMessage For="@(() => ClientRequest.Name)" />
+
+    <br />
+    <label class="col-form-label" style="display:inline-block; text-align:right">Domain Name</label><br />
+    <InputText class="MTS-CSS-inputText form-control" placeholder="Domain Name" @bind-Value="ClientRequest.DomainName" />
+    <ValidationMessage For="@(() => ClientRequest.DomainName)" />
+    <br />
+    <br />
+    @*<button class="MTS-CSS-button-variant-01 text-white" type="submit"  @onclick="@ShowConfirmationModal">Save</button>*@
+    <button class="MTS-CSS-button-variant-01 text-white" type="submit">Save</button>
+
+    <button class="MTS-CSS-button-variant-04 text-white" type="button" @onclick="@NewClientCancel">Cancel</button>
+
+</EditForm>
+
+@code{
+
+    //private AddNew add = new AddNew();
+    //private void Create()
+    //{
+    //    Console.WriteLine(add.Name);
+    //}
+    //[CascadingParameter] public IModalService Modal { get; set; }
+
+
+    //void ShowConfirmationModal()
+    //{
+    //    var options = new ModalOptions()
+    //    {
+
+
+
+    //    };
+
+    //    Modal.Show<Shared.ModalConfirmation>("", options);
+
+    //}
+
+}
+
