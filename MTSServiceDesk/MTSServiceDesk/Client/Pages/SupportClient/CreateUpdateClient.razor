@@ -1,6 +1,15 @@
 ﻿@page "/CreateUpdateClient/{Id:int}"
 @inherits CreateUpdateClientBase
-<h3 ><strong>New Client</strong></h3>
+@using BlazorInputFile
+
+
+
+@if (Id > 0)
+{
+    <h3><strong>Edit Client</strong></h3>
+}
+else
+{<h3><strong>New Client</strong></h3>}
 <br />
 <EditForm Model="ClientRequest" OnValidSubmit="ShowConfirmationModal">
     <DataAnnotationsValidator />
@@ -19,6 +28,20 @@
     <button class="MTS-CSS-button-variant-01 text-white" type="submit">Save</button>
 
     <button class="MTS-CSS-button-variant-04 text-white" type="button" @onclick="@NewClientCancel">Cancel</button>
+    <br />
+    <br />
+
+    <label>Add File</label><br />
+    <InputFile OnChange="HandleSelection" />
+    <br />
+
+    <p>@status</p>
+
+    @if (!string.IsNullOrEmpty(imageDataUri))
+    {
+        <img src="@imageDataUri" />
+    }
+
 
 </EditForm>
 
