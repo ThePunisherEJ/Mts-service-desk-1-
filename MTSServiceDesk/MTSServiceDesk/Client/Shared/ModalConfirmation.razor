@@ -1,5 +1,26 @@
-﻿<h3><strong>Are you sure you want to save?</strong></h3>
+﻿@inherits ModalConfirmationBase
+@inject HttpClient httpClient
 
-<button style="text-align:center" class="MTS-CSS-button-variant-01 text-white">Yes</button> <br />
-<button style="text-align:center"class="MTS-CSS-button-variant-01 text-white">No</button>
+<div class="blazor-modal">
+    <h3><strong>@confirmationMessage</strong></h3>
+    <br />
 
+    <button style="text-align:center" class="MTS-CSS-button-variant-01 text-white" @onclick="@ModalSave" type="submit">Yes</button>
+
+    <button class="MTS-CSS-button-variant-04 text-white" type="button" @onclick="@ModalCancel">No</button>
+
+    </div>
+
+<style>
+    .blazor-modal {
+        display: flow;
+        flex-direction: column-reverse;
+        width: 15rem;
+        background-color: #fff;
+        border-radius: 4px;
+        border: 1px solid #fff;
+        padding: 1.5rem;
+        z-index: 4;
+    }
+
+</style>

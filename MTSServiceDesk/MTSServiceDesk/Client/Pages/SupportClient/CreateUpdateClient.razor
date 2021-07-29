@@ -11,7 +11,9 @@
 else
 {<h3><strong>New Client</strong></h3>}
 <br />
-<EditForm Model="ClientRequest" OnValidSubmit="ShowConfirmationModal">
+@if (ClientRequest != null)
+{
+<EditForm Model="ClientRequest" OnValidSubmit="FormSave" Context="EditForm">
     <DataAnnotationsValidator />
     <label style="display: inline-block; text-align: right">Name</label><br />
     <InputText class="MTS-CSS-inputText form-control" placeholder="Name" @bind-Value="ClientRequest.Name" />
@@ -23,27 +25,55 @@ else
     <InputText class="MTS-CSS-inputText form-control" placeholder="Domain Name" @bind-Value="ClientRequest.DomainName" />
     <ValidationMessage For="@(() => ClientRequest.DomainName)" />
     <br />
-    <br />
+    
     @*<button class="MTS-CSS-button-variant-01 text-white" type="submit"  @onclick="@ShowConfirmationModal">Save</button>*@
-    <button class="MTS-CSS-button-variant-01 text-white" type="submit">Save</button>
+<label class="col-form-label" style="display:inline-block; text-emphasis:filled">Logo</label>
+    @*<InputFile accept=".jpeg" style="color: transparent" OnChange="HandleSelection" />*@
+    
+    
 
-    <button class="MTS-CSS-button-variant-04 text-white" type="button" @onclick="@NewClientCancel">Cancel</button>
-    <br />
-    <br />
-
-    <label>Add File</label><br />
-    <InputFile OnChange="HandleSelection" />
-    <br />
-
-    <p>@status</p>
+    @*<p>@status</p>*@
+<div>
 
     @if (!string.IsNullOrEmpty(imageDataUri))
     {
         <img src="@imageDataUri" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            img {
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                padding: 5px;
+                width: 50px;
+            }
+
+                img:hover {
+                    box-shadow: 0 0 10px rgb(0, 167, 157);
+                }
+        </style>
+
+
+
+
     }
+    <br /> <br /> 
+    <InputFile accept=".jpeg" style="color: transparent" OnChange="HandleSelection" />
+
+    <br />  <br />
+
+
+
+    <button class="MTS-CSS-button-variant-01 text-white" type="submit">Save</button>
+
+    <button class="MTS-CSS-button-variant-04 text-white" type="button" @onclick="@NewClientCancel">Cancel</button>
+    <br /> <br />
+
+
+</div>
 
 
 </EditForm>
 
-
+}
 

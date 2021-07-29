@@ -26,10 +26,37 @@ namespace MTS.ServiceDesk.Client.Pages.SupportClient
         [CascadingParameter] public IModalService Modal { get; set; }
 
 
+        //protected string status;
+        protected string imageDataUri;
+
         #endregion
 
-       protected string status;
-       protected string imageDataUri;
+        protected override async Task OnInitializedAsync()
+        {
+            if (Id == 0)
+            {
+                ClientRequest = new SupportClientCreateUpdateRequest();
+                ClientRequest.StatusId = 2;
+            }
+            else
+            {
+                SupportClientDetails clientDetails = await httpClient.GetFromJsonAsync<SupportClientDetails>("api/supportclient/Get-ById/" + Id.ToString());
+
+                ClientRequest.DomainName = clientDetails.DomainName;
+                ClientRequest.Id = clientDetails.Id;
+                ClientRequest.Logo = clientDetails.Logo;
+                ClientRequest.Name = clientDetails.Name;
+                ClientRequest.StatusId = clientDetails.StatusId;
+                if (ClientRequest.Logo != null)
+                {
+                    imageDataUri = $"data:image/jpeg;base64,{Convert.ToBase64String(ClientRequest.Logo)}";
+                    //Convert.ToBase64String(ClientRequest.Logo);
+                }
+            }
+
+        }
+
+
        protected async Task HandleSelection(IFileListEntry[] files)
         {
             var rawFile = files.FirstOrDefault();
@@ -44,8 +71,10 @@ namespace MTS.ServiceDesk.Client.Pages.SupportClient
                 // Make a data URL so we can display it
                 imageDataUri = $"data:{format};base64,{Convert.ToBase64String(ms.ToArray())}";
 
-                status = $"Finished loading {ms.Length} bytes from {imageFile.Name}";
+                //status = $"Finished loading {ms.Length} bytes from {imageFile.Name}";
+                ClientRequest.Logo = ms.ToArray();
             }
+           
         }
         protected void Create()
         {
@@ -53,27 +82,20 @@ namespace MTS.ServiceDesk.Client.Pages.SupportClient
         }
         
 
-        protected override async Task OnInitializedAsync()
+
+        protected void FormSave()
         {
-            if(Id == 0)
+            if (Id > 0)
             {
-                ClientRequest = new SupportClientCreateUpdateRequest();
-                    }
+                ShowConfirmationModalForUpdate();
+            }
             else
             {
-                SupportClientDetails clientDetails = await httpClient.GetFromJsonAsync<SupportClientDetails>("api/supportclient/Get-ById/" + Id.ToString());
-                ClientRequest.DomainName = clientDetails.DomainName;
-                ClientRequest.Id = clientDetails.Id;
-                ClientRequest.Logo = clientDetails.Logo;
-                ClientRequest.Name = clientDetails.Name;
-                ClientRequest.StatusId = clientDetails.StatusId;
-                
+                ShowConfirmationModalForCreate();
             }
-           
         }
 
-
-        protected void ShowConfirmationModal()
+        protected async Task ShowConfirmationModalForUpdate()
         {
             var options = new ModalOptions()
             {
@@ -82,12 +104,101 @@ namespace MTS.ServiceDesk.Client.Pages.SupportClient
 
 
             };
+            var parameters = new ModalParameters();
+            parameters.Add(nameof(Shared.ModalConfirmation.confirmationMessage), "Are you sure you want to edit existing client?");
+            var modalForm = Modal.Show<Shared.ModalConfirmation>("", parameters,options);
+            ModalResult result = await modalForm.Result;
+            modalForm.Close();
 
-            Modal.Show<Shared.ModalConfirmation>("", options);
+
+            if (result.Cancelled)
+            {
+
+            }
+            else
+            { 
+               var response =  await httpClient.PostAsJsonAsync("api/SupportClient/update-supportclient", ClientRequest);
+                if(response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    //Show success modal
+                    await ModalSaved();
+                 
+                    navigationManager.NavigateTo("SupportClientsHome");
+                }
+                else
+                {
+                    //Show error modal
+                    await ModalFail();
+                    //dont navigate away
+                }
+                
+
+            }
+        }
+
+        protected async Task ShowConfirmationModalForCreate()
+        {
+            var options = new ModalOptions()
+            {
+                HideCloseButton = true,
+                HideHeader = true,
+
+
+            };
+            var parameters = new ModalParameters();
+            parameters.Add(nameof(Shared.ModalConfirmation.confirmationMessage), "Are you sure you want to create new client?");
+            
+
+            
+
+            var modalForm = Modal.Show<Shared.ModalConfirmation>("", parameters,options);
+            ModalResult result = await modalForm.Result;
+            modalForm.Close();
+
+
+            if (result.Cancelled)
+            {
+
+            }
+            else
+            {
+                var response = await httpClient.PostAsJsonAsync("api/SupportClient/create-supportclient", ClientRequest);
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    //Show success modal
+                    await ModalSaved();
+
+                    navigationManager.NavigateTo("SupportClientsHome");
+                }
+                else
+                {
+                    //Show error modal
+                    await ModalFail();
+                    //dont navigate away
+                }
+
+
+            }
+        }
+        protected async Task ModalSaved()
+        {
+            var modalForm = Modal.Show<Shared.ModalSuccess>("");
+            ModalResult resultSuccess = await modalForm.Result;
+           
+
+            }
+
+        protected async Task ModalFail()
+        {
+            var modalForm = Modal.Show<Shared.ModalFailed>("");
+            ModalResult resultFail = await modalForm.Result;
+
 
         }
+
         protected void NewClientCancel()
         {
+            //ShowConfirmationModal();
             navigationManager.NavigateTo("SupportClientsHome");
         }
     }
