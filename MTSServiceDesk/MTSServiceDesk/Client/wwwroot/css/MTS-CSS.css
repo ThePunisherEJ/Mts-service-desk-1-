@@ -1,4 +1,5 @@
-﻿
+﻿/*#region Buttons */
+
 [class*="MTS-CSS-button-"] {
     border-color: black;
     border-width: 0.5px;
@@ -7,39 +8,60 @@
 }
 
 
-.MTS-CSS-button-variant-01 {
+.MTS-CSS-button-variant-01 
+{
     background-image: linear-gradient(to right, rgb(55, 39, 77), rgb(0, 167, 157));
 }
 
-    .MTS-CSS-button-variant-01:hover, .MTS-CSS-button-variant-01:focus {
+    .MTS-CSS-button-variant-01:hover, .MTS-CSS-button-variant-01:focus 
+    {
         box-shadow: 0 0 10px rgb(0, 167, 157);
     }
 
 
-.MTS-CSS-button-variant-02 {
+.MTS-CSS-button-variant-02 
+{
     background-image: linear-gradient(to right, rgb(55, 39, 77), rgb(60, 90, 108));
 }
 
-    .MTS-CSS-button-variant-02:hover, .MTS-CSS-button-variant-02:focus {
+    .MTS-CSS-button-variant-02:hover, .MTS-CSS-button-variant-02:focus 
+    {
         box-shadow: 0 0 10px rgb(55, 39, 77);
     }
 
 
-.MTS-CSS-button-variant-03 {
+.MTS-CSS-button-variant-03 
+{
     background-image: linear-gradient(to right, rgb(60, 90, 108), rgb(55, 39, 77));
 }
 
-    .MTS-CSS-button-variant-03:hover, .MTS-CSS-button-variant-03:focus {
+    .MTS-CSS-button-variant-03:hover, .MTS-CSS-button-variant-03:focus 
+    {
         box-shadow: 0 0 10px rgb(0, 167, 157);
     }
 
 
-.MTS-CSS-button-variant-04 {
+.MTS-CSS-button-variant-04 
+{
     background-image: linear-gradient(to right, rgb(55, 39, 77), red);
 }
 
-    .MTS-CSS-button-variant-04:hover, .MTS-CSS-button-variant-04:focus {
+    .MTS-CSS-button-variant-04:hover, .MTS-CSS-button-variant-04:focus 
+    {
         box-shadow: 0 0 10px red;
+    }
+
+/*#endregion */
+
+
+/*#region Date Selector */
+
+.MTS-CSS-dateSelector {
+    border-radius: 0%;
+}
+
+    .MTS-CSS-dateSelector:hover, .MTS-CSS-dateSelector:focus {
+        box-shadow: 0 0 10px rgb(0, 167, 157);
     }
 
 /*#endregion */
@@ -67,7 +89,7 @@
     border-color: black;
 }
 
-    .MTS-CSS-inputText:focus {
+    .MTS-CSS-inputText:focus, .MTS-CSS-inputText:focus {
         box-shadow: 0 0 10px rgb(0, 167, 157);
     }
 
@@ -76,8 +98,42 @@
 
 /*#region Labels */
 
-[class*="MTS-CSS-label-"] {
+[class*="MTS-CSS-label-"] 
+{
+    
 }
+/*#endregion */
+
+
+/*#region Modals */
+
+[class*="MTS-CSS-modal-"] {
+    width: 15%;
+    z-index: 102;
+    display: flex;
+    flex-direction: column;
+    /*padding-left: 1.5%;
+    padding-right: 1.5%;
+    padding-top: 0.5%;*/
+    border-style: solid;
+    border-width: 0px;
+    /*padding-bottom: 2.5%;*/
+    box-shadow: 0 0 5px 1px black;
+    padding: 0 1rem 1rem 1rem;
+}
+
+.MTS-CSS-modal-variant-01 {
+    background-color: whitesmoke;
+}
+
+.MTS-CSS-modal-variant-02 {
+    background-image: linear-gradient(to bottom, rgb(55, 39, 77), rgb(0, 167, 157));
+}
+
+.MTS-CSS-modal-variant-03 {
+    background-image: linear-gradient(to bottom, rgb(55, 39, 77), red);
+}
+
 /*#endregion */
 
 
@@ -126,38 +182,130 @@
 /*#endregion */
 
 
+/*#region TextArea */
+
+.MTS-CSS-textArea {
+    border-radius: 0%;
+    border-style: solid;
+    border-width: 0.5px;
+    border-color: black;
+}
+
+    .MTS-CSS-textArea:focus, .MTS-CSS-textArea:focus {
+        box-shadow: 0 0 10px rgb(0, 167, 157);
+    }
+
+/*#endregion */
+
+
+/*#region Toggle Switch */
+
+/*#region Toggle Switch Container */
+
+.MTS-CSS-toggleSwitchContainer {
+    position: relative;
+    width: 30px;
+    height: 17px;
+}
+
+    .MTS-CSS-toggleSwitchContainer .MTS-CSS-checkBox {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+/*#endregion */
+
+
+/*#region Slider Component */
+
+.MTS-CSS-slider /*Defines the actual slider component for the toggle switch*/ {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: linear-gradient(to left, rgb(55, 39, 77), red);
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+    .MTS-CSS-slider:before {
+        position: absolute;
+        content: "";
+        height: 13px;
+        width: 13px;
+        left: 2px;
+        bottom: 2px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+        border-radius: 50%;
+    }
+
+/*#endregion */
+
+
+.MTS-CSS-checkBox:checked + .MTS-CSS-slider {
+    background-image: linear-gradient(to right, rgb(55, 39, 77), rgb(0, 167, 157));
+}
+
+.MTS-CSS-checkBox:focus + .MTS-CSS-slider {
+    box-shadow: 0 0 10px rgb(0, 167, 157);
+}
+
+.MTS-CSS-checkBox:checked + .MTS-CSS-slider:before {
+    -webkit-transform: translateX(13px);
+    -ms-transform: translateX(13px);
+    transform: translateX(13px);
+}
+
+/*#endregion */
+
+
 /*#region Media Queries */
 
-@media only screen and (max-width: 992px) {
-    [class*="MTS-CSS-button-"], [class*="MTS-CSS-label-"], [class*="MTS-CSS-navLink-"], .MTS-CSS-dropDownList, .MTS-CSS-inputText, .MTS-CSS-tableHead, .MTS-CSS-tableRow {
+@media only screen and (max-width: 992px) 
+{
+    [class*="MTS-CSS-button-"], [class*="MTS-CSS-label-"], [class*="MTS-CSS-navLink-"], .MTS-CSS-dropDownList, .MTS-CSS-inputText, .MTS-CSS-tableHead, .MTS-CSS-tableRow 
+    {
         font-size: 12px;
     }
 
-    .MTS-CSS-editForm {
+    .MTS-CSS-editForm
+    {
         padding-left: 30%;
         padding-right: 30%;
     }
 }
 
 
-@media only screen and (max-width: 768px) {
-    [class*="MTS-CSS-button-"], [class*="MTS-CSS-label-"], [class*="MTS-CSS-navLink-"], .MTS-CSS-dropDownList, .MTS-CSS-inputText, .MTS-CSS-tableHead, .MTS-CSS-tableRow {
+@media only screen and (max-width: 768px) 
+{
+    [class*="MTS-CSS-button-"], [class*="MTS-CSS-label-"],[class*="MTS-CSS-navLink-"], .MTS-CSS-dropDownList, .MTS-CSS-inputText, .MTS-CSS-tableHead, .MTS-CSS-tableRow 
+    {
         font-size: 11px;
     }
 
-    .MTS-CSS-editForm {
+    .MTS-CSS-editForm 
+    {
         padding-left: 21%;
         padding-right: 21%;
     }
 }
 
 
-@media only screen and (max-width: 576px) {
-    [class*="MTS-CSS-button-"], [class*="MTS-CSS-label-"], [class*="MTS-CSS-navLink-"], .MTS-CSS-dropDownList, .MTS-CSS-inputText, .MTS-CSS-tableHead, .MTS-CSS-tableRow {
+@media only screen and (max-width: 576px) 
+{
+    [class*="MTS-CSS-button-"], [class*="MTS-CSS-label-"], [class*="MTS-CSS-navLink-"], .MTS-CSS-dropDownList, .MTS-CSS-inputText, .MTS-CSS-tableHead, .MTS-CSS-tableRow 
+    {
         font-size: 10px;
     }
 
-    .MTS-CSS-editForm {
+    .MTS-CSS-editForm 
+    {
         padding-left: 13%;
         padding-right: 13%;
     }
@@ -172,23 +320,8 @@
 }
 
 
-.MTS-CSS-confirmationModal {
-    height: 350px;
-    width: 250px;
-    z-index: 102;
-    background-color: whitesmoke;
-    display: flex;
-    flex-direction: column;
-    padding-left: 1.5%;
-    padding-right: 1.5%;
-    padding-top: 0.5%;
-    border-style: solid;
-    border-width: 0px;
-    box-shadow: 0 0 5px 1px black;
-}
-
-
-.MTS-CSS-editForm {
+.MTS-CSS-editForm 
+{
     padding-left: 37.5%;
     padding-right: 37.5%;
 }

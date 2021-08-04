@@ -1,0 +1,90 @@
+﻿@page "/CreateUpdateClient/{Id:int}"
+@inherits CreateUpdateClientBase
+@using BlazorInputFile
+
+
+
+@if (Id > 0)
+{
+    <h3><strong>Edit Client</strong></h3>
+}
+else
+{<h3><strong>New Client</strong></h3>}
+<br />
+@if (ClientRequest != null)
+{
+<EditForm Model="ClientRequest" OnValidSubmit="FormSave" Context="EditForm">
+    <DataAnnotationsValidator />
+    <label style="display: inline-block; text-align: right">Name</label><br />
+    <InputText class="MTS-CSS-inputText form-control" placeholder="Name" @bind-Value="ClientRequest.Name" />
+
+    <ValidationMessage For="@(() => ClientRequest.Name)" />
+
+    <br />
+    <label class="col-form-label" style="display:inline-block; text-align:right">Domain Name</label><br />
+    <InputText class="MTS-CSS-inputText form-control" placeholder="Domain Name" @bind-Value="ClientRequest.DomainName" />
+    <ValidationMessage For="@(() => ClientRequest.DomainName)" />
+    <br />
+    <label style="display: inline-block; text-align: right">Status</label><br />
+    <label class="MTS-CSS-toggleSwitchContainer">
+
+        <InputCheckbox class="MTS-CSS-checkBox" @bind-Value="IsEnabled" />
+
+        <span class="MTS-CSS-slider"></span>
+
+    </label>
+    <br />
+
+    <label class="col-form-label" style="display:inline-block; text-emphasis:filled">Logo</label><br />
+
+   
+
+    @if (!string.IsNullOrEmpty(imageDataUri))
+    {
+        <img src="@imageDataUri" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            img {
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                padding: 5px;
+                width: 50px;
+            }
+
+                img:hover {
+                    box-shadow: 0 0 10px rgb(0, 167, 157);
+                }
+        </style>
+
+
+
+
+    }
+    &nbsp;&nbsp;
+    <InputFile accept=".jpeg" style="color: transparent" OnChange="HandleSelection" />
+
+
+    @*<label class="MTS-CSS-toggleSwitchContainer">
+
+            <InputCheckbox class="MTS-CSS-checkBox" @bind-Value="IsEnabled"/>
+
+            <span class="MTS-CSS-slider"></span>
+
+        </label>*@
+
+
+    <br />  <br />
+    <button class="MTS-CSS-button-variant-01 text-white" type="submit">Save</button>
+
+    <button class="MTS-CSS-button-variant-04 text-white" type="button" @onclick="@NewClientCancel">Cancel</button>
+    <br /> <br />
+
+
+
+
+
+</EditForm>
+
+}
+
