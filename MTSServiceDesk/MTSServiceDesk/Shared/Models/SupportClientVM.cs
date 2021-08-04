@@ -14,6 +14,26 @@ namespace MTS.ServiceDesk.Shared.Models
         public int StatusId { get; set; }
         public string StatusDescription { get; set; }
 
+
+        public bool IsEnabled 
+        {
+            get
+            {
+                return StatusId == 1;
+            }
+            set
+            {
+                if (value == true)
+                {
+                    StatusId = 1;
+                }
+                else
+                {
+                    StatusId = 2;
+                }
+            }
+        }
+
     }
 
     public class SupportClientCreateUpdateRequest

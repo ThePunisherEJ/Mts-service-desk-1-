@@ -25,15 +25,19 @@ else
     <InputText class="MTS-CSS-inputText form-control" placeholder="Domain Name" @bind-Value="ClientRequest.DomainName" />
     <ValidationMessage For="@(() => ClientRequest.DomainName)" />
     <br />
-    
-    @*<button class="MTS-CSS-button-variant-01 text-white" type="submit"  @onclick="@ShowConfirmationModal">Save</button>*@
-<label class="col-form-label" style="display:inline-block; text-emphasis:filled">Logo</label>
-    @*<InputFile accept=".jpeg" style="color: transparent" OnChange="HandleSelection" />*@
-    
-    
+    <label style="display: inline-block; text-align: right">Status</label><br />
+    <label class="MTS-CSS-toggleSwitchContainer">
 
-    @*<p>@status</p>*@
-<div>
+        <InputCheckbox class="MTS-CSS-checkBox" @bind-Value="IsEnabled" />
+
+        <span class="MTS-CSS-slider"></span>
+
+    </label>
+    <br />
+
+    <label class="col-form-label" style="display:inline-block; text-emphasis:filled">Logo</label><br />
+
+   
 
     @if (!string.IsNullOrEmpty(imageDataUri))
     {
@@ -57,20 +61,27 @@ else
 
 
     }
-    <br /> <br /> 
+    &nbsp;&nbsp;
     <InputFile accept=".jpeg" style="color: transparent" OnChange="HandleSelection" />
 
+
+    @*<label class="MTS-CSS-toggleSwitchContainer">
+
+            <InputCheckbox class="MTS-CSS-checkBox" @bind-Value="IsEnabled"/>
+
+            <span class="MTS-CSS-slider"></span>
+
+        </label>*@
+
+
     <br />  <br />
-
-
-
     <button class="MTS-CSS-button-variant-01 text-white" type="submit">Save</button>
 
     <button class="MTS-CSS-button-variant-04 text-white" type="button" @onclick="@NewClientCancel">Cancel</button>
     <br /> <br />
 
 
-</div>
+
 
 
 </EditForm>

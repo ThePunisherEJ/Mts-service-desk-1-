@@ -8,20 +8,33 @@ using System.Threading.Tasks;
 
 namespace MTS.ServiceDesk.Client.Shared
 {
-    public class ModalSuccessBase : ComponentBase
+    public class ModalCancelBase : ComponentBase
     {
         #region DI
         [Inject]
         protected NavigationManager navigationManager { get; set; }
 
 
+
+        #endregion
+        #region Properties and Parameters
+   
+
         [CascadingParameter]
         protected BlazoredModalInstance blazoredModal { get; set; }
         #endregion
+        protected void ModalNo()
+        {
 
-        public void ModalSuccessShow()
+            blazoredModal.Close(ModalResult.Cancel());
+
+        }
+
+        protected void ModalYes()
         {
             blazoredModal.Close(ModalResult.Ok(""));
+
+
         }
     }
 }

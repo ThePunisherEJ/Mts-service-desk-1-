@@ -24,11 +24,29 @@ namespace MTS.ServiceDesk.Client.Pages.SupportClient
         [Parameter] public int Id { get; set; }
         protected SupportClientCreateUpdateRequest ClientRequest = new SupportClientCreateUpdateRequest();
         [CascadingParameter] public IModalService Modal { get; set; }
-
+        
+        protected bool IsEnabled
+        {
+            get
+            {
+                return ClientRequest.StatusId == 1;
+            }
+            set
+            {
+                if (value == true)
+                {
+                    ClientRequest.StatusId = 1;
+                }
+                else
+                {
+                    ClientRequest.StatusId = 2;
+                }
+            }
+        }
 
         //protected string status;
         protected string imageDataUri;
-
+        protected List<SupportClientDetails> clients;
         #endregion
 
         protected override async Task OnInitializedAsync()
@@ -55,9 +73,13 @@ namespace MTS.ServiceDesk.Client.Pages.SupportClient
             }
 
         }
+        protected async Task PopulateList()
+        {
+            clients = await httpClient.GetFromJsonAsync<List<SupportClientDetails>>("api/SupportClient/Get-All");
 
+        }
 
-       protected async Task HandleSelection(IFileListEntry[] files)
+        protected async Task HandleSelection(IFileListEntry[] files)
         {
             var rawFile = files.FirstOrDefault();
             if (rawFile != null)
@@ -74,13 +96,13 @@ namespace MTS.ServiceDesk.Client.Pages.SupportClient
                 //status = $"Finished loading {ms.Length} bytes from {imageFile.Name}";
                 ClientRequest.Logo = ms.ToArray();
             }
-           
+
         }
         protected void Create()
         {
             Console.WriteLine(ClientRequest.Name);
         }
-        
+
 
 
         protected void FormSave()
@@ -99,14 +121,14 @@ namespace MTS.ServiceDesk.Client.Pages.SupportClient
         {
             var options = new ModalOptions()
             {
-                HideCloseButton = true, 
+                HideCloseButton = true,
                 HideHeader = true,
 
 
             };
             var parameters = new ModalParameters();
             parameters.Add(nameof(Shared.ModalConfirmation.confirmationMessage), "Are you sure you want to edit existing client?");
-            var modalForm = Modal.Show<Shared.ModalConfirmation>("", parameters,options);
+            var modalForm = Modal.Show<Shared.ModalConfirmation>("", parameters, options);
             ModalResult result = await modalForm.Result;
             modalForm.Close();
 
@@ -116,13 +138,13 @@ namespace MTS.ServiceDesk.Client.Pages.SupportClient
 
             }
             else
-            { 
-               var response =  await httpClient.PostAsJsonAsync("api/SupportClient/update-supportclient", ClientRequest);
-                if(response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var response = await httpClient.PostAsJsonAsync("api/SupportClient/update-supportclient", ClientRequest);
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     //Show success modal
                     await ModalSaved();
-                 
+
                     navigationManager.NavigateTo("SupportClientsHome");
                 }
                 else
@@ -131,7 +153,7 @@ namespace MTS.ServiceDesk.Client.Pages.SupportClient
                     await ModalFail();
                     //dont navigate away
                 }
-                
+
 
             }
         }
@@ -147,11 +169,11 @@ namespace MTS.ServiceDesk.Client.Pages.SupportClient
             };
             var parameters = new ModalParameters();
             parameters.Add(nameof(Shared.ModalConfirmation.confirmationMessage), "Are you sure you want to create new client?");
-            
 
-            
 
-            var modalForm = Modal.Show<Shared.ModalConfirmation>("", parameters,options);
+
+
+            var modalForm = Modal.Show<Shared.ModalConfirmation>("", parameters, options);
             ModalResult result = await modalForm.Result;
             modalForm.Close();
 
@@ -182,11 +204,18 @@ namespace MTS.ServiceDesk.Client.Pages.SupportClient
         }
         protected async Task ModalSaved()
         {
-            var modalForm = Modal.Show<Shared.ModalSuccess>("");
-            ModalResult resultSuccess = await modalForm.Result;
            
 
-            }
+            var optionSuccess = new ModalOptions()
+            {
+                HideCloseButton = true,
+                HideHeader = true,
+
+
+            };
+            var modalForm = Modal.Show<Shared.ModalSuccess>("",optionSuccess);
+            ModalResult resultSuccess = await modalForm.Result;
+        }
 
         protected async Task ModalFail()
         {
@@ -196,15 +225,75 @@ namespace MTS.ServiceDesk.Client.Pages.SupportClient
 
         }
 
-        protected void NewClientCancel()
+        protected async Task NewClientCancel()
         {
-            //ShowConfirmationModal();
-            navigationManager.NavigateTo("SupportClientsHome");
+            var cancelOptions = new ModalOptions()
+            {
+                HideCloseButton = true,
+                HideHeader = true,
+
+
+            };
+
+
+            var modalForm = Modal.Show<Shared.ModalCancel>("", cancelOptions);
+            ModalResult resultCancel = await modalForm.Result;
+            //modalForm.Close();
+            if (resultCancel.Cancelled)
+            {
+
+            }
+            else
+            {
+                navigationManager.NavigateTo("SupportClientsHome");
+            }
         }
-    }
-    
 
-    
-    }
+        protected async Task ShowConfirmationModalForEnable(int clientID)
+        {
+            var options = new ModalOptions()
+            {
+                HideCloseButton = true,
+                HideHeader = true,
 
+
+            };
+            var parameters = new ModalParameters();
+            parameters.Add(nameof(Shared.ModalEnable.confirmationMessageEnableOrDisable), "Are you sure you want to enable?");
+            var modalForm = Modal.Show<Shared.ModalEnable>("", parameters, options);
+            ModalResult resultEnable = await modalForm.Result;
+            modalForm.Close();
+
+
+            if (resultEnable.Cancelled)
+            {
+
+            }
+            else
+            {
+                var response = await httpClient.PostAsJsonAsync("api/SupportClient/enable-supportclient/" + clientID.ToString(), "");
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    //Show success modal
+
+                    var modalApiResponse = Modal.Show<Shared.ModalSuccess>("");
+                    ModalResult resultSuccess = await modalApiResponse.Result;
+
+                }
+                else
+                {
+                    //Show error modal
+                    var modalApiResponse = Modal.Show<Shared.ModalFailed>("");
+                    ModalResult resultFail = await modalApiResponse.Result;
+                    //dont navigate away
+                }
+                await PopulateList();
+
+            }
+        }
+
+
+
+    }
+}
 

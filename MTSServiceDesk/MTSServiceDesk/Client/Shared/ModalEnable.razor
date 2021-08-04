@@ -1,0 +1,26 @@
+﻿@inherits ModalEnableBase
+@inject HttpClient httpClient
+
+<div class="blazor-modal">
+    <h4>@confirmationMessageEnableOrDisable</h4>
+    
+
+    <button style="text-align:center" class="MTS-CSS-button-variant-01 text-white" @onclick="@ModalYes" type="submit">Yes</button>
+
+    <button class="MTS-CSS-button-variant-04 text-white" type="button" @onclick="@ModalNo">No</button>
+
+</div>
+
+<style>
+    .blazor-modal {
+        display: flow;
+        flex-direction: column-reverse;
+        width: 15rem;
+        background-color: #fff;
+        text-align:center;
+    /*    border-radius: 4px;
+        border: 1px solid #fff;
+        padding: 1.5rem;
+        z-index: 4;*/
+    }
+</style>
