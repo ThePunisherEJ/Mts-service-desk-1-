@@ -1,0 +1,82 @@
+﻿@page "/UserMaintenanceHome"
+@inject HttpClient httpClient
+@inherits UserMaintenanceHomeBase
+
+<h3>User Maintenance</h3>
+
+@if (allUsers == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+<EditForm Model="allUsers">
+
+    <InputSelect style="float:left" class="MTS-CSS-dropDownList"  @bind-Value="selectedClientId">
+
+        @foreach (var client in clients)
+            {
+            <option value="@client.Id"> @client.Name</option>
+
+            }
+        
+    </InputSelect> <br />
+  
+    <table class="table">
+        <thead class="MTS-CSS-tableHead">
+            <tr class="d-table-row">
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th><button class="MTS-CSS-button-variant-01 text-white" style="float:right" @onclick="NewUserClick">Add New</button></th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in allUsers)
+            {
+                <tr>
+                    <td>@user.UserId</td>
+                    <td>@user.FirstName</td>
+                    <td>@user.LastName</td>
+                    <td>@user.Email</td>
+                    <td>
+                       
+                        <label class="MTS-CSS-toggleSwitchContainer">
+                            <InputCheckbox class="MTS-CSS-checkBox" @bind-Value="user.UserStatusBool" disabled />
+                            <span class="MTS-CSS-slider"></span>
+                        </label>
+
+                    </td>
+                    @if (user.UserStatusBool == true)
+                        {
+                            <td>
+                                <button class="btn btn-sm w-40 text-white MTS-CSS-button-variant-03" style="float:right" @onclick="()=>UpdateUserClick(user.UserId.ToString())">Edit</button>
+                                <button class="btn btn-sm w-40 text-white MTS-CSS-button-variant-03" @onclick="()=>ShowConfirmationModalForDisable(user.UserId.ToString())">Disable</button>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <button class="btn btn-sm w-40 text-white MTS-CSS-button-variant-03" style="float:right" @onclick="()=>UpdateUserClick(user.UserId.ToString())">Edit</button>
+                                <button class="btn btn-sm w-40 text-white MTS-CSS-button-variant-03" @onclick="()=>ShowConfirmationModalForEnable(user.UserId.ToString())">Enable</button>
+                            </td>
+                        }
+
+                   
+
+
+
+
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</EditForm>
+    }
+
+
+

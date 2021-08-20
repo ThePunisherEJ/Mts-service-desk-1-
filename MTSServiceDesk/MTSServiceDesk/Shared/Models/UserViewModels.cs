@@ -49,7 +49,27 @@ namespace MTS.ServiceDesk.Shared.Models
         public UserType TypeOfUser { get; set; }
         public int UserStatus { get; set; }
 
-
+        public bool UserStatusBool
+        {
+            get
+            {
+                return UserStatus == 1;
+            }
+            set
+            {
+                if (value == true)
+                {
+                    UserStatus = 1;
+                }
+                else
+                {
+                    UserStatus = 2;
+                }
+            }
+        }
 
     }
+
+
+
 }
