@@ -17,7 +17,7 @@ namespace MTS.ServiceDesk.Server.Data
         {
         }
 
-        public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
+        //public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<SupportClient> SupportClient { get; set; }
         public virtual DbSet<Systems> Systems { get; set; }
@@ -34,46 +34,49 @@ namespace MTS.ServiceDesk.Server.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<AspNetUsers>(entity =>
-            {
-                entity.HasIndex(e => e.NormalizedEmail)
-                    .HasName("EmailIndex");
+            #region REmoved ASPNetUsers
+            //modelBuilder.Entity<AspNetUsers>(entity =>
+            //{
+            //    entity.HasIndex(e => e.NormalizedEmail)
+            //        .HasName("EmailIndex");
 
-                entity.HasIndex(e => e.NormalizedUserName)
-                    .HasName("UserNameIndex")
-                    .IsUnique()
-                    .HasFilter("([NormalizedUserName] IS NOT NULL)");
+            //    entity.HasIndex(e => e.NormalizedUserName)
+            //        .HasName("UserNameIndex")
+            //        .IsUnique()
+            //        .HasFilter("([NormalizedUserName] IS NOT NULL)");
 
-                entity.Property(e => e.Email).HasMaxLength(256);
+            //    entity.Property(e => e.Email).HasMaxLength(256);
 
-                entity.Property(e => e.FirstName)
-                    .IsRequired()
-                    .HasMaxLength(150)
-                    .IsUnicode(false);
+            //    entity.Property(e => e.FirstName)
+            //        .IsRequired()
+            //        .HasMaxLength(150)
+            //        .IsUnicode(false);
 
-                entity.Property(e => e.LastName)
-                    .IsRequired()
-                    .HasMaxLength(150)
-                    .IsUnicode(false);
+            //    entity.Property(e => e.LastName)
+            //        .IsRequired()
+            //        .HasMaxLength(150)
+            //        .IsUnicode(false);
 
-                entity.Property(e => e.NormalizedEmail).HasMaxLength(256);
+            //    entity.Property(e => e.NormalizedEmail).HasMaxLength(256);
 
-                entity.Property(e => e.NormalizedUserName).HasMaxLength(256);
+            //    entity.Property(e => e.NormalizedUserName).HasMaxLength(256);
 
-                entity.Property(e => e.UserName).HasMaxLength(256);
+            //    entity.Property(e => e.UserName).HasMaxLength(256);
 
-                entity.HasOne(d => d.Client)
-                    .WithMany(p => p.AspNetUsers)
-                    .HasForeignKey(d => d.ClientId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_AspNetUsers_Client");
+            //    entity.HasOne(d => d.Client)
+            //        .WithMany(p => p.AspNetUsers)
+            //        .HasForeignKey(d => d.ClientId)
+            //        .OnDelete(DeleteBehavior.ClientSetNull)
+            //        .HasConstraintName("FK_AspNetUsers_Client");
 
-                entity.HasOne(d => d.UserStatus)
-                    .WithMany(p => p.AspNetUsers)
-                    .HasForeignKey(d => d.UserStatusId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_AspNetUsers_UserStatus");
-            });
+            //    entity.HasOne(d => d.UserStatus)
+            //        .WithMany(p => p.AspNetUsers)
+            //        .HasForeignKey(d => d.UserStatusId)
+            //        .OnDelete(DeleteBehavior.ClientSetNull)
+            //        .HasConstraintName("FK_AspNetUsers_UserStatus");
+            //});
+
+            #endregion
 
             modelBuilder.Entity<Status>(entity =>
             {
