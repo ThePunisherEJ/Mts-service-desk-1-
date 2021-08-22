@@ -108,12 +108,21 @@ namespace MTS.ServiceDesk.Client.Shared
             menu7.AllowAnonymous = false;
             menu7.RequiredPermissions = "Admin";
 
+            DynMenuItem menu8 = new DynMenuItem();
+            menu8.ID = 8;
+            menu8.ParentID = 5;
+            menu8.Name = "Client Systems";
+            menu8.NavTo = "SystemsHome";
+            menu8.IsLeaf = true;
+            menu8.AllowAnonymous = false;
+            menu8.RequiredPermissions = "Admin";
 
             fullMenu.Add(menu1);
 
             fullMenu.Add(menu5);
             fullMenu.Add(menu6);
             fullMenu.Add(menu7);
+            fullMenu.Add(menu8);
 
 
             //expandSubNavList = new bool[fullMenu.Count + 1];
