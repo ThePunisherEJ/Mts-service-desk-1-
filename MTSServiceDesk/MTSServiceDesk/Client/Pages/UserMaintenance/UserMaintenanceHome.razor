@@ -24,7 +24,7 @@ else
   
     <table class="table">
         <thead class="MTS-CSS-tableHead">
-            <tr class="d-table-row">
+            <tr class="table-row">
                 <th>ID</th>
                 <th>First Name</th>
                 <th>Last Name</th>
@@ -37,7 +37,7 @@ else
         <tbody>
             @foreach (var user in allUsers)
             {
-                <tr>
+                <tr class="MTS-CSS-tableRow">
                     <td>@user.UserId</td>
                     <td>@user.FirstName</td>
                     <td>@user.LastName</td>
@@ -52,17 +52,17 @@ else
                     </td>
                     @if (user.UserStatusBool == true)
                         {
-                            <td>
-                                <button class="btn btn-sm w-20 text-white MTS-CSS-button-variant-03" style="float:right" @onclick="()=>UpdateUserClick(user.UserId.ToString())">Edit</button>
-                                <button class="btn btn-sm w-40 text-white MTS-CSS-button-variant-03" @onclick="()=>ShowConfirmationModalForDisable(user.UserId.ToString())">Disable</button>
-                            </td>
+                <td>
+                    <button class=" btn btn-sm w-30 text-white MTS-CSS-button-variant-03 "style="float:right; margin:5px" @onclick="()=>UpdateUserClick(user.UserId.ToString())">Edit</button> &nbsp; &nbsp;
+                    <button class=" btn btn-sm w-30 text-white MTS-CSS-button-variant-03 "style="float:right; margin:5px" @onclick="()=>ShowConfirmationModalForDisable(user.UserId.ToString())">Disable</button>
+                </td>
                         }
                         else
                         {
-                            <td>
-                                <button class="btn btn-sm w-20 text-white MTS-CSS-button-variant-03" style="float:right" @onclick="()=>UpdateUserClick(user.UserId.ToString())">Edit</button>
-                                <button class="btn btn-sm w-40 text-white MTS-CSS-button-variant-03" @onclick="()=>ShowConfirmationModalForEnable(user.UserId.ToString())">Enable</button>
-                            </td>
+                <td>
+                    <button class="btn btn-sm w-30 text-white MTS-CSS-button-variant-03 " style="float:right; margin:5px"@onclick="()=>UpdateUserClick(user.UserId.ToString())">Edit</button>  &nbsp;&nbsp;
+                    <button class=" btn btn-sm w-30 text-white MTS-CSS-button-variant-03 " style="float:right; margin:5px" @onclick="()=>ShowConfirmationModalForEnable(user.UserId.ToString())">Enable</button> 
+                </td>
                         }
 
                    
