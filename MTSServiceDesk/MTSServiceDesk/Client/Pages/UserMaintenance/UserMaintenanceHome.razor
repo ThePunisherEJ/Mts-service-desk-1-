@@ -53,14 +53,14 @@ else
                     @if (user.UserStatusBool == true)
                         {
                             <td>
-                                <button class="btn btn-sm w-40 text-white MTS-CSS-button-variant-03" style="float:right" @onclick="()=>UpdateUserClick(user.UserId.ToString())">Edit</button>
+                                <button class="btn btn-sm w-20 text-white MTS-CSS-button-variant-03" style="float:right" @onclick="()=>UpdateUserClick(user.UserId.ToString())">Edit</button>
                                 <button class="btn btn-sm w-40 text-white MTS-CSS-button-variant-03" @onclick="()=>ShowConfirmationModalForDisable(user.UserId.ToString())">Disable</button>
                             </td>
                         }
                         else
                         {
                             <td>
-                                <button class="btn btn-sm w-40 text-white MTS-CSS-button-variant-03" style="float:right" @onclick="()=>UpdateUserClick(user.UserId.ToString())">Edit</button>
+                                <button class="btn btn-sm w-20 text-white MTS-CSS-button-variant-03" style="float:right" @onclick="()=>UpdateUserClick(user.UserId.ToString())">Edit</button>
                                 <button class="btn btn-sm w-40 text-white MTS-CSS-button-variant-03" @onclick="()=>ShowConfirmationModalForEnable(user.UserId.ToString())">Enable</button>
                             </td>
                         }
