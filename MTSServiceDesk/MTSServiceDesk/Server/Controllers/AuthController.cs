@@ -75,8 +75,9 @@ namespace MTS.ServiceDesk.Server.Controllers
             {
                 IsAuthenticated = User.Identity.IsAuthenticated,
                 UserName = User.Identity.Name,
-                Claims = User.Claims
-                .ToDictionary(c => c.Type, c => c.Value)
+                //Claims = User.Claims.ToDictionary(c => c.Type, c => c.Value)
+                Claims = User.Claims.Select(x => new string[2] { x.Type, x.Value }).ToList()
+
             };
         }
 
