@@ -25,7 +25,9 @@ namespace MTS.ServiceDesk.Client.Services
                 var userInfo = await GetCurrentUser();
                 if (userInfo.IsAuthenticated)
                 {
-                    var claims = new[] { new Claim(ClaimTypes.Name, _currentUser.UserName) }.Concat(_currentUser.Claims.Select(c => new Claim(c.Key, c.Value)));
+                    //var claims = new[] { new Claim(ClaimTypes.Name, _currentUser.UserName) }.Concat(_currentUser.Claims.Select(c => new Claim(c.Key, c.Value)));
+                    var claims = new[] { new Claim(ClaimTypes.Name, _currentUser.UserName) }.Concat(_currentUser.Claims.Select(c => new Claim(c[0], c[1])).ToArray());
+
                     identity = new ClaimsIdentity(claims, "Server authentication");
                 }
             }
