@@ -74,6 +74,7 @@ namespace MTS.ServiceDesk.Client.Pages.UserMaintenance
                 UserRequest = new UserCreateUpdateRequest();
                 UserRequest.UserStatus = 2;
                 selectedClientId = ClientId;
+                UserRequest.TypeOfUser = UserType.User;
                 
             }
             else

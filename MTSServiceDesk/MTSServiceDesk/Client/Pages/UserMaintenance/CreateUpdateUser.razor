@@ -19,7 +19,7 @@ else
 
 <EditForm Model="UserRequest" OnValidSubmit="FormSave" Context="EditForm">
     <DataAnnotationsValidator />
-    @*<label style="display: inline-block; text-align: right">User ID</label><br />*@
+    
 
     <br />
     <label @*style="display: inline-block; text-align: right" *@ class="MTS-CSS-label">Client ID</label><br />
@@ -45,16 +45,18 @@ else
         <option value="2"> Consultant</option>
         <option value="3"> User</option>
     </InputSelect>
-    <br />
-    @*ValueChanged="@((string value) => OnValueChanged(value ))"*@
+    <br /><br />
+    
     <label class="col-form-label" style="display:inline-block; text-align:right">First Name</label><br />
-    <InputText class="MTS-CSS-inputText form-control" placeholder="First Name" @bind-Value="UserRequest.FirstName" />
+    <InputText class="MTS-CSS-inputText form-control" style="height:27px; width:350px" placeholder="First Name" @bind-Value="UserRequest.FirstName" />
+    <ValidationMessage For="@(() => UserRequest.FirstName)" />
     <br />
     <label class="col-form-label" style="display:inline-block; text-align:right">Last Name</label><br />
-    <InputText class="MTS-CSS-inputText form-control" placeholder="Last Name" @bind-Value="UserRequest.LastName" />
+    <InputText class="MTS-CSS-inputText form-control"  style="height:27px; width:350px" placeholder="Last Name" @bind-Value="UserRequest.LastName" />
+    <ValidationMessage For="@(() => UserRequest.LastName)" />
     <br />
     <label class="col-form-label" style="display:inline-block; text-align:right">Email</label><br />
-    <InputText class="MTS-CSS-inputText form-control" placeholder="Email" @bind-Value="UserRequest.Email" />
+    <InputText class="MTS-CSS-inputText form-control"   style="height:27px; width:350px" placeholder="Email" @bind-Value="UserRequest.Email" />
     <ValidationMessage For="@(() => UserRequest.Email)" />
     <br />
     <label style="display: inline-block; text-align: right"> User Status</label><br />
@@ -72,6 +74,7 @@ else
 
 
 </EditForm>
+<br />
 <br />
 <br />
 }
