@@ -150,6 +150,23 @@ namespace MTS.ServiceDesk.Server.Controllers
                 {
                     return BadRequest(result.Errors.FirstOrDefault()?.Description);
                 }
+                await _userManager.RemoveFromRolesAsync(user,new List<string> { "Admin", "Consultant", "User" });
+                switch (updUser.TypeOfUser)
+                {
+                    case UserType.Administrator:
+                        await _userManager.AddToRoleAsync(user, "Admin");
+                        await _userManager.AddToRoleAsync(user, "Consultant");
+                        break;
+                    case UserType.Consultant:
+                        await _userManager.AddToRoleAsync(user, "Consultant");
+                        break;
+                    case UserType.User:
+                        await _userManager.AddToRoleAsync(user, "User");
+                        break;
+                    default:
+                        break;
+                }
+
 
 
                 return Ok();
@@ -237,6 +254,46 @@ namespace MTS.ServiceDesk.Server.Controllers
             }
         }
 
+        [HttpGet("get-users-by-clientid/{clientId}")]
+        public async Task<IActionResult> GetUsersForClient(string clientId)
+        {
+            try
+            {
+                List<UserDetails> userList = new List<UserDetails>();
+                int clientIdInt = int.Parse(clientId);
+                var appUserList = _userManager.Users.Where(u => u.ClientId == clientIdInt ).ToList();
+                foreach (var item in appUserList)
+                {
+                    bool isAdmin = await _userManager.IsInRoleAsync(item, "Admin");
+                    bool isCons = await _userManager.IsInRoleAsync(item, "Consultant");
+                    bool isUser = await _userManager.IsInRoleAsync(item, "User");
+                    UserType usrType = UserType.User;
+                    if (isAdmin)
+                    {
+                        usrType = UserType.Administrator;
+                    }
+                    if (isCons && !isAdmin)
+                    {
+                        usrType = UserType.Consultant;
+                    }
+                    userList.Add(new UserDetails
+                    {
+                        Email = item.Email,
+                        FirstName = item.FirstName,
+                        LastName = item.LastName,
+                        UserId = Guid.Parse(item.Id),
+                        ClientId = item.ClientId,
+                        UserStatus = item.UserStatusId,
+                        TypeOfUser = usrType
+                    });
+                }
+                return Ok(userList);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpGet("get-user-by-id/{userId}")]
         public async Task<IActionResult> GetUserById(string userId)
         {
@@ -263,7 +320,9 @@ namespace MTS.ServiceDesk.Server.Controllers
                     LastName = appUser.LastName,
                     UserId = Guid.Parse(appUser.Id),
                     ClientId = appUser.ClientId,
-                    TypeOfUser = usrType
+                    TypeOfUser = usrType,
+                    UserStatus = appUser.UserStatusId
+                    
                 };
                 return Ok(user);
             }

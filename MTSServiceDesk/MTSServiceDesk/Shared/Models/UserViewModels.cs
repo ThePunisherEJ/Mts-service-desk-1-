@@ -31,12 +31,16 @@ namespace MTS.ServiceDesk.Shared.Models
     public class UserCreateUpdateRequest
     {
         public Guid UserId { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Email is required")]
         public string Email { get; set; }
+        [Required(ErrorMessage = "First Name is required")]
         public string FirstName { get; set; }
+        [Required(ErrorMessage = "Last Name is required")]
         public string LastName { get; set; }
+        [Required]
         public int ClientId { get; set; }
         public UserType TypeOfUser { get; set; }
+        
         public int UserStatus { get; set; }
 
     }
@@ -51,7 +55,27 @@ namespace MTS.ServiceDesk.Shared.Models
         public UserType TypeOfUser { get; set; }
         public int UserStatus { get; set; }
 
-
+        public bool UserStatusBool
+        {
+            get
+            {
+                return UserStatus == 1;
+            }
+            set
+            {
+                if (value == true)
+                {
+                    UserStatus = 1;
+                }
+                else
+                {
+                    UserStatus = 2;
+                }
+            }
+        }
 
     }
+
+
+
 }
