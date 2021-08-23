@@ -9,7 +9,9 @@ namespace MTS.ServiceDesk.Shared.Models
     {
         public bool IsAuthenticated { get; set; }
         public string UserName { get; set; }
-        public Dictionary<string, string> Claims { get; set; }
+        //public Dictionary<string, string> Claims { get; set; }
+        public List<string[]> Claims { get; set; }
+
     }
 
     public static class SecurityRoles

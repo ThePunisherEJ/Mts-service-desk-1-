@@ -3,6 +3,8 @@
 
 @inherits ClientHomeBase
 
+
+
 <h3> <strong>Client Home</strong></h3>
 
 @if (clients == null)
@@ -11,41 +13,63 @@
 }
 else
 {
+<EditForm Model="clients">
     <link href="css/MTS-CSS.css" rel="stylesheet" />
     <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
     <link href="css/app.css" rel="stylesheet" />
     <link href="_content/Blazored.Modal/blazored-modal.css" rel="stylesheet" />
     <table class="table">
         <thead class="MTS-CSS-tableHead">
-            
+
             <tr class="table-row">
-                
+
                 <th>ID</th>
                 <th>Name</th>
                 <th>Domain</th>
                 <th>Status</th>
-                <th><button class="MTS-CSS-button-variant-01 text-white" style="float:right">ADD NEW</button></th>
-
+               
+                <th><button @onclick="@NewClientClick" class="MTS-CSS-button-variant-01 text-white" style="float:right">Add New</button></th>
+                
             </tr>
         </thead>
         <tbody>
             @foreach (var client in clients)
             {
-                <tr>
-                    <td>@client.Id</td>
-                    <td>@client.Name</td>
-                    <td>@client.DomainName</td>
-                    <td>@client.StatusDescription</td>
-                    <td><button class="MTS-CSS-button-variant-01 text-white" style="float:right">EDIT</button></td>
+            <tr class="MTS-CSS-tableRow">
+                <td>@client.Id</td>
+                <td>@client.Name</td>
+                <td>@client.DomainName</td>
+                <td>
+                    <label class="MTS-CSS-toggleSwitchContainer">
+                        
+                        <InputCheckbox class="MTS-CSS-checkBox"  @bind-Value="client.IsEnabled" disabled />
+                        
+                        <span class="MTS-CSS-slider"></span>
 
+                    </label>
+                </td>
+                @if(client.IsEnabled == true)
+                {
+                 <td>
 
+                <button class="btn btn-sm w-30 text-white MTS-CSS-button-variant-03" style="float:right; margin:5px" @onclick="()=>UpdateClientClick(client.Id)">Edit</button>  &nbsp;  &nbsp;
+                <button class="btn btn-sm w-30 text-white MTS-CSS-button-variant-03" style="float: right; margin: 5px" @onclick="()=>ShowConfirmationModalForDisable(client.Id)">Disable</button>
+                 </td>
+                }
+                else 
+                { 
+                 <td>
+                <button class="btn btn-sm w-30 text-white MTS-CSS-button-variant-03" style="float:right; margin:5px" @onclick="()=>UpdateClientClick(client.Id)">Edit</button>  &nbsp;  &nbsp;
+                 <button class="btn btn-sm w-30 text-white MTS-CSS-button-variant-03"style="float:right; margin:5px" @onclick="()=>ShowConfirmationModalForEnable(client.Id)">Enable</button>
 
-
-
-                </tr>
+                 </td>
+                }
+      
+            </tr>
             }
         </tbody>
     </table>
+</EditForm>
 }
 
 
