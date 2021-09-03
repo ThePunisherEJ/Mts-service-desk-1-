@@ -71,7 +71,7 @@ namespace MTS.ServiceDesk.Client.Pages.Systems
 
         protected void UpdateSystemClick(string systemID)
         {
-            navigationManager.NavigateTo("CreateUpdateSystems/" + SelectedClientId /*+ "/" + systemID*/);
+            navigationManager.NavigateTo("CreateUpdateSystems/" + systemID);
         }
 
         protected async Task ShowConfirmationModalForEnable(string systemID)
