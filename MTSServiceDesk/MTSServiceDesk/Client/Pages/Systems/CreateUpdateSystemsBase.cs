@@ -22,7 +22,7 @@ namespace MTS.ServiceDesk.Client.Pages.Systems
         protected List<SystemDetails> allSystems;
         [Parameter] public string ClientId { get; set; }
 
-        [Parameter] public string UserId { get; set; }
+       
         
         public SystemCreateUpdateRequest systemsRequest = new SystemCreateUpdateRequest();
         [CascadingParameter]
@@ -78,7 +78,7 @@ namespace MTS.ServiceDesk.Client.Pages.Systems
             {
                 _selectedClientId = int.Parse(value);
                 systemsRequest.ClientId = _selectedClientId;
-                PopulateSystemList();
+               
 
 
 
@@ -91,10 +91,11 @@ namespace MTS.ServiceDesk.Client.Pages.Systems
         protected override async Task OnInitializedAsync()
         {
             await PopulateClientList();
-            SelectedClientId = clients.FirstOrDefault().Id.ToString();
+           
 
             if (Id == 0)
             {
+                SelectedClientId = ClientId;
                 //systemsRequest = new SystemCreateUpdateRequest();
                 systemsRequest.StatusId = 2;
             }
@@ -107,17 +108,14 @@ namespace MTS.ServiceDesk.Client.Pages.Systems
                 systemsRequest.StatusId = systemsDetails.StatusId;
                 systemsRequest.Description = systemsDetails.Description;
                 systemsRequest.ClientId = systemsDetails.ClientId;
+                SelectedClientId = ClientId;
 
             }
 
 
         }
 
-        protected async Task PopulateSystemList()
-        {
-            allSystems = await httpClient.GetFromJsonAsync<List<SystemDetails>>("api/systems/Get-All-Systems-For-Client/" + SelectedClientId);
-            StateHasChanged();
-        }
+        
         protected async Task PopulateClientList()
         {
             clients = await httpClient.GetFromJsonAsync<List<SupportClientDetails>>("api/SupportClient/Get-All");

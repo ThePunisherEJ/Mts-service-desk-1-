@@ -66,12 +66,12 @@ namespace MTS.ServiceDesk.Client.Pages.Systems
         }
         protected void NewSystemsClick()
         {
-            navigationManager.NavigateTo("/CreateUpdateSystems/0");
+            navigationManager.NavigateTo("/CreateUpdateSystems/" + SelectedClientId + "/0");
         }
 
         protected void UpdateSystemClick(string systemID)
         {
-            navigationManager.NavigateTo("CreateUpdateSystems/" + systemID);
+            navigationManager.NavigateTo("CreateUpdateSystems/" + SelectedClientId + "/" + systemID);
         }
 
         protected async Task ShowConfirmationModalForEnable(string systemID)
