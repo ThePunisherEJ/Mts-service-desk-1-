@@ -14,10 +14,10 @@
 else
 {
 <EditForm Model="clients">
-    <link href="css/MTS-CSS.css" rel="stylesheet" />
+    @*<link href="css/MTS-CSS.css" rel="stylesheet" />
     <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
     <link href="css/app.css" rel="stylesheet" />
-    <link href="_content/Blazored.Modal/blazored-modal.css" rel="stylesheet" />
+    <link href="_content/Blazored.Modal/blazored-modal.css" rel="stylesheet" />*@
     <table class="table">
         <thead class="MTS-CSS-tableHead">
 
@@ -28,7 +28,7 @@ else
                 <th>Domain</th>
                 <th>Status</th>
                
-                <th><button @onclick="@NewClientClick" class="MTS-CSS-button-variant-01 text-white" style="float:right">Add New</button></th>
+                <th><button class="MTS-CSS-iconButton" @onclick="@NewClientClick"> <span style="color: rgb(0, 167, 157)"> <i class="fas fa-plus-circle" style="font-size: 14px;" /> </span>Add New</button></th>
                 
             </tr>
         </thead>
@@ -52,17 +52,17 @@ else
                 {
                  <td>
 
-                <button class="btn btn-sm w-30 text-white MTS-CSS-button-variant-03" style="float:right; margin:5px" @onclick="()=>UpdateClientClick(client.Id)">Edit</button>  &nbsp;  &nbsp;
+                     <button class="MTS-CSS-iconButton" @onclick="()=>UpdateClientClick(client.Id)"> <span style="color: rgb(60, 90, 108)"> <i class="far fa-edit" style="font-size: 14px;" /> </span>Edit</button>  &nbsp;  &nbsp;
                 <button class="btn btn-sm w-30 text-white MTS-CSS-button-variant-03" style="float: right; margin: 5px" @onclick="()=>ShowConfirmationModalForDisable(client.Id)">Disable</button>
                  </td>
                 }
                 else 
                 { 
-                 <td>
-                <button class="btn btn-sm w-30 text-white MTS-CSS-button-variant-03" style="float:right; margin:5px" @onclick="()=>UpdateClientClick(client.Id)">Edit</button>  &nbsp;  &nbsp;
-                 <button class="btn btn-sm w-30 text-white MTS-CSS-button-variant-03"style="float:right; margin:5px" @onclick="()=>ShowConfirmationModalForEnable(client.Id)">Enable</button>
+            <td>
+                <button class="MTS-CSS-iconButton" @onclick="()=>UpdateClientClick(client.Id)"> <span style="color: rgb(60, 90, 108)"> <i class="far fa-edit" style="font-size: 14px;" /> </span>Edit</button>  &nbsp;  &nbsp;
+                <button class="btn btn-sm w-30 text-white MTS-CSS-button-variant-03" style="float:right; margin:5px" @onclick="()=>ShowConfirmationModalForEnable(client.Id)">Enable</button>
 
-                 </td>
+            </td>
                 }
       
             </tr>
