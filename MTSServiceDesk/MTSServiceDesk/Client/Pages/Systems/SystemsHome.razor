@@ -1,0 +1,70 @@
+﻿@page "/SystemsHome"
+@inject HttpClient httpClient
+@inherits SystemsHomeBase
+
+
+<h3>Systems Home</h3>
+
+@if (allSystems == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+
+<EditForm Model="allSystems">
+    <InputSelect style="float:left" class="MTS-CSS-dropDownList" @bind-Value="SelectedClientId">
+
+        @foreach (var client in clients)
+            {
+            <option value="@client.Id"> @client.Name</option>
+
+        }
+
+    </InputSelect> <br />
+    <table class="table">
+        <thead class="MTS-CSS-tableHead">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th><button @onclick="@NewSystemsClick" class="MTS-CSS-button-variant-01 text-white" style="float:right">Add New</button></th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var sys in allSystems)
+            {
+            <tr class="MTS-CSS-tableRow">
+                <td>@sys.Id</td>
+                <td>@sys.Name</td>
+                <td>@sys.Description</td>
+                <td>
+                    <label class="MTS-CSS-toggleSwitchContainer">
+                        <InputCheckbox class="MTS-CSS-checkBox" @bind-Value="sys.SysStatusBool" disabled />
+                        <span class="MTS-CSS-slider"></span>
+                    </label>
+                </td>
+                @if (sys.SysStatusBool == true)
+                {
+                    <td>
+                        <button class=" btn btn-sm w-30 text-white MTS-CSS-button-variant-03 " style="float:right; margin:5px" @onclick="()=>UpdateSystemClick(sys.Id.ToString())">Edit</button> &nbsp; &nbsp;
+                        <button class=" btn btn-sm w-30 text-white MTS-CSS-button-variant-03 " style="float:right; margin:5px" @onclick="()=>ShowConfirmationModalForDisable(sys.Id.ToString())">Disable</button>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <button class="btn btn-sm w-30 text-white MTS-CSS-button-variant-03 " style="float:right; margin:5px" @onclick="()=>UpdateSystemClick(sys.Id.ToString())">Edit</button>  &nbsp;&nbsp;
+                        <button class=" btn btn-sm w-30 text-white MTS-CSS-button-variant-03 " style="float:right; margin:5px" @onclick="()=>ShowConfirmationModalForEnable(sys.Id.ToString())">Enable</button>
+                    </td>
+                }
+            </tr>
+            }
+        </tbody>
+    </table>
+    
+</EditForm>
+}
+
