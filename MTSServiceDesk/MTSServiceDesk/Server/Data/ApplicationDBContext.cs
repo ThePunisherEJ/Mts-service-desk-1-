@@ -20,7 +20,10 @@ namespace MTS.ServiceDesk.Server.Data
         //public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<SupportClient> SupportClient { get; set; }
+        public virtual DbSet<SupportTicket> SupportTicket { get; set; }
         public virtual DbSet<Systems> Systems { get; set; }
+        public virtual DbSet<TicketComment> TicketComment { get; set; }
+        public virtual DbSet<TicketStatus> TicketStatus { get; set; }
         public virtual DbSet<UserStatus> UserStatus { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -34,7 +37,6 @@ namespace MTS.ServiceDesk.Server.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            #region REmoved ASPNetUsers
             //modelBuilder.Entity<AspNetUsers>(entity =>
             //{
             //    entity.HasIndex(e => e.NormalizedEmail)
@@ -76,8 +78,6 @@ namespace MTS.ServiceDesk.Server.Data
             //        .HasConstraintName("FK_AspNetUsers_UserStatus");
             //});
 
-            #endregion
-
             modelBuilder.Entity<Status>(entity =>
             {
                 entity.Property(e => e.Id).ValueGeneratedNever();
@@ -107,6 +107,38 @@ namespace MTS.ServiceDesk.Server.Data
                     .HasConstraintName("FK_SupportClient_Status");
             });
 
+            modelBuilder.Entity<SupportTicket>(entity =>
+            {
+                entity.Property(e => e.CreatedBy)
+                    .IsRequired()
+                    .HasMaxLength(150)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.DateCreated).HasColumnType("datetime");
+
+                entity.Property(e => e.Description)
+                    .IsRequired()
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.Client)
+                    .WithMany(p => p.SupportTicket)
+                    .HasForeignKey(d => d.ClientId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SupportTicket_SupportClient");
+
+                entity.HasOne(d => d.Status)
+                    .WithMany(p => p.SupportTicket)
+                    .HasForeignKey(d => d.StatusId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SupportTicket_TicketStatuse");
+
+                entity.HasOne(d => d.System)
+                    .WithMany(p => p.SupportTicket)
+                    .HasForeignKey(d => d.SystemId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SupportTicket_Systems");
+            });
+
             modelBuilder.Entity<Systems>(entity =>
             {
                 entity.HasIndex(e => e.ClientId);
@@ -133,6 +165,36 @@ namespace MTS.ServiceDesk.Server.Data
                     .HasConstraintName("FK_Systems_Status");
             });
 
+            modelBuilder.Entity<TicketComment>(entity =>
+            {
+                entity.Property(e => e.Comment)
+                    .IsRequired()
+                    .IsUnicode(false);
+
+                entity.Property(e => e.CreatedBy)
+                    .IsRequired()
+                    .HasMaxLength(150)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.DateCreated).HasColumnType("datetime");
+
+                entity.HasOne(d => d.Ticket)
+                    .WithMany(p => p.TicketComment)
+                    .HasForeignKey(d => d.TicketId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_TicketComment_SupportTicket");
+            });
+
+            modelBuilder.Entity<TicketStatus>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+            });
+
             modelBuilder.Entity<UserStatus>(entity =>
             {
                 entity.Property(e => e.Id).ValueGeneratedNever();
@@ -143,7 +205,7 @@ namespace MTS.ServiceDesk.Server.Data
                     .IsUnicode(false);
             });
 
-            base.OnModelCreating(modelBuilder); //add this line
+            base.OnModelCreating(modelBuilder);
             OnModelCreatingPartial(modelBuilder);
         }
 
