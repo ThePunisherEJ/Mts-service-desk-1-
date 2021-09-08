@@ -244,6 +244,45 @@ namespace MTS.ServiceDesk.Server.Controllers
 
 
         [Authorize]
+        [HttpPost("Assign-Ticket")]
+        public async Task<IActionResult> AssignTicketAsync(TicketStatusUpdateRequest updTicketReq)
+        {
+            try
+            {
+                #region Upate Ticket Status
+
+                SupportTicket updTicket = _applicationDBContext.SupportTicket.Where(st => st.Id == updTicketReq.TicketId).FirstOrDefault();
+                updTicket.StatusId = 2;
+                updTicket.AssignedTo = updTicketReq.UpdatedBy;
+                _applicationDBContext.SupportTicket.Update(updTicket);
+                await _applicationDBContext.SaveChangesAsync();
+                #endregion
+
+                #region Add Comment
+                TicketComment newComment = new TicketComment();
+                newComment.TicketId = updTicketReq.TicketId;
+                newComment.Comment = "Ticket assigned";
+                newComment.CreatedBy = updTicketReq.UpdatedBy;
+                newComment.DateCreated = DateTime.Now;
+
+                _applicationDBContext.TicketComment.Add(newComment);
+                await _applicationDBContext.SaveChangesAsync();
+                #endregion
+
+
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+
+        }
+
+
+
+        [Authorize]
         [HttpGet("Get-Comments-For-Ticket/{ticketId}")]
         public async Task<IActionResult> GetCommentsForTicketAsync(string ticketId)
         {
