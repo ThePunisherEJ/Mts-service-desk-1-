@@ -67,6 +67,10 @@ namespace MTS.ServiceDesk.Server.Data
 
             modelBuilder.Entity<SupportTicket>(entity =>
             {
+                entity.Property(e => e.AssignedTo)
+                    .HasMaxLength(150)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.ClosedBy)
                     .HasMaxLength(150)
                     .IsUnicode(false);

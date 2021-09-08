@@ -9,6 +9,8 @@
 	[StatusId] int not null,
     [DateClosed] datetime NULL, 
 	[ClosedBy] VARCHAR (150) NULL,
+	[AssignedTo] VARCHAR (150) NULL,
+
 
     CONSTRAINT [PK_SupportTicket] PRIMARY KEY ([Id]), 
     CONSTRAINT [FK_SupportTicket_SupportClient] FOREIGN KEY ([ClientId]) REFERENCES [SupportClient]([Id]), 
