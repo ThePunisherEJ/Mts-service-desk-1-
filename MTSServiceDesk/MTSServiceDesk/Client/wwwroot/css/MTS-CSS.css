@@ -1,21 +1,22 @@
 ﻿/*#region Buttons */
 
 [class*="MTS-CSS-button-"] {
-    border-color: black;
-    border-width: 0.5px;
+    /*border-color: black;
+    border-width: 0.5px;*/
+    border:none;
     border-radius: 0%;
     font-weight: bold;
+    font-size:12px;
 }
 
 
 .MTS-CSS-button-variant-01 
 {
-    background-image: linear-gradient(to right, rgb(55, 39, 77), rgb(0, 167, 157));
+    background-color: rgb(0, 167, 157);
 }
 
-    .MTS-CSS-button-variant-01:hover, .MTS-CSS-button-variant-01:focus 
-    {
-        box-shadow: 0 0 10px rgb(0, 167, 157);
+    .MTS-CSS-button-variant-01:hover, .MTS-CSS-button-variant-01:focus {
+        box-shadow: 0 0 10px rgb(55, 39, 77);
     }
 
 
@@ -24,8 +25,7 @@
     background-image: linear-gradient(to right, rgb(55, 39, 77), rgb(60, 90, 108));
 }
 
-    .MTS-CSS-button-variant-02:hover, .MTS-CSS-button-variant-02:focus 
-    {
+    .MTS-CSS-button-variant-02:hover, .MTS-CSS-button-variant-02:focus {
         box-shadow: 0 0 10px rgb(55, 39, 77);
     }
 
@@ -35,20 +35,26 @@
     background-image: linear-gradient(to right, rgb(60, 90, 108), rgb(55, 39, 77));
 }
 
-    .MTS-CSS-button-variant-03:hover, .MTS-CSS-button-variant-03:focus 
-    {
-        box-shadow: 0 0 10px rgb(0, 167, 157);
+    .MTS-CSS-button-variant-03:hover, .MTS-CSS-button-variant-03:focus {
+        box-shadow: 0 0 10px rgb(55, 39, 77);
     }
 
 
 .MTS-CSS-button-variant-04 
 {
-    background-image: linear-gradient(to right, rgb(55, 39, 77), red);
+    background-color: firebrick;
 }
 
-    .MTS-CSS-button-variant-04:hover, .MTS-CSS-button-variant-04:focus 
-    {
-        box-shadow: 0 0 10px red;
+    .MTS-CSS-button-variant-04:hover, .MTS-CSS-button-variant-04:focus {
+        box-shadow: 0 0 10px rgb(55, 39, 77);
+    }
+
+.MTS-CSS-button-variant-05 {
+    background-color: rgb(0, 167, 157);
+}
+
+    .MTS-CSS-button-variant-05:hover, .MTS-CSS-button-variant-05:focus {
+        box-shadow: 0 0 10px rgb(55, 39, 77);
     }
 
 /*#endregion */
@@ -61,7 +67,7 @@
 }
 
     .MTS-CSS-dateSelector:hover, .MTS-CSS-dateSelector:focus {
-        box-shadow: 0 0 10px rgb(0, 167, 157);
+        box-shadow: 0 0 10px rgb(55, 39, 77);
     }
 
 /*#endregion */
@@ -74,7 +80,7 @@
 }
 
     .MTS-CSS-dropDownList:hover, .MTS-CSS-dropDownList:focus {
-        box-shadow: 0 0 10px rgb(0, 167, 157);
+        box-shadow: 0 0 10px rgb(55, 39, 77);
     }
 
 /*#endregion */
@@ -90,7 +96,7 @@
 }
 
     .MTS-CSS-inputText:focus, .MTS-CSS-inputText:focus {
-        box-shadow: 0 0 10px rgb(0, 167, 157);
+        box-shadow: 0 0 10px rgb(55, 39, 77);
     }
 
 /*#endregion */
@@ -98,17 +104,37 @@
 
 /*#region Labels */
 
-[class*="MTS-CSS-label-"] 
-{
-    
+[class*="MTS-CSS-label-"] {
+    font-weight: bold;
 }
-/*#endregion */
 
+
+.MTS-CSS-label-variant-01 {
+    width: 100px;
+}
+
+.MTS-CSS-label-variant-02 {
+    width: 125px;
+}
+
+.MTS-CSS-label-variant-03 {
+    width: 150px;
+}
+
+.MTS-CSS-label-variant-04 {
+    width: 175px;
+}
+
+.MTS-CSS-label-variant-05 {
+    width: 200px;
+}
+
+/*#endregion */
 
 /*#region Modals */
 
 [class*="MTS-CSS-modal-"] {
-    width: 15%;
+    /*width: 15%;*/
     z-index: 102;
     display: flex;
     flex-direction: column;
@@ -118,20 +144,18 @@
     border-style: solid;
     border-width: 0px;
     /*padding-bottom: 2.5%;*/
-    box-shadow: 0 0 5px 1px black;
+    box-shadow: 0 0 5px 1px rgb(55, 39, 77);
     padding: 0 1rem 1rem 1rem;
-}
-
-.MTS-CSS-modal-variant-01 {
     background-color: whitesmoke;
 }
 
-.MTS-CSS-modal-variant-02 {
-    background-image: linear-gradient(to bottom, rgb(55, 39, 77), rgb(0, 167, 157));
+.MTS-CSS-modal-variant-01 {
+    width: min-content;
 }
 
-.MTS-CSS-modal-variant-03 {
-    background-image: linear-gradient(to bottom, rgb(55, 39, 77), red);
+.MTS-CSS-modal-variant-02 {
+    width: 15%;
+    
 }
 
 /*#endregion */
@@ -153,6 +177,18 @@
 
 /*#region Tables */
 
+.MTS-CSS-table 
+{
+    table-layout: fixed;
+    font-size: 12px;
+}
+
+.MTS-CSS-scrollableTable {
+    overflow-y: scroll;
+    height: 500px;
+    width: 100%;
+}
+
 .MTS-CSS-tableHead {
     background-image: linear-gradient(to right, rgb(55, 39, 77), rgb(0, 167, 157));
     border-bottom-style: solid;
@@ -170,9 +206,9 @@
 
 
 .MTS-CSS-tableRow {
-    border-top-style: double;
-    border-top-width: 1px;
-    border-top-color: black;
+    border-bottom-style: double;
+    border-bottom-style: 1px;
+    border-bottom-style: black;
 }
 
     .MTS-CSS-tableRow:hover {
@@ -192,7 +228,7 @@
 }
 
     .MTS-CSS-textArea:focus, .MTS-CSS-textArea:focus {
-        box-shadow: 0 0 10px rgb(0, 167, 157);
+        box-shadow: 0 0 10px rgb(55, 39, 77);
     }
 
 /*#endregion */
@@ -253,7 +289,8 @@
 }
 
 .MTS-CSS-checkBox:focus + .MTS-CSS-slider {
-    box-shadow: 0 0 10px rgb(0, 167, 157);
+    box-shadow: 0 0 10px rgb(55, 39, 77);
+    ;
 }
 
 .MTS-CSS-checkBox:checked + .MTS-CSS-slider:before {
@@ -324,6 +361,16 @@
 {
     padding-left: 37.5%;
     padding-right: 37.5%;
+}
+
+.MTS-CSS-iconButton{
+    border:none;
+    background-color:transparent;
+}
+
+
+.MTS-CSS-label {
+    width:150px;
 }
 
 
