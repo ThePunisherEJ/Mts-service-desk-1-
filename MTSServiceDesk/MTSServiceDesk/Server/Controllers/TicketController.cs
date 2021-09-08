@@ -182,29 +182,65 @@ namespace MTS.ServiceDesk.Server.Controllers
         }
 
 
-        //[Authorize]
-        //[HttpPost("Close-Ticket")]
-        //public async Task<IActionResult> ChangeTicketStatusAsync(TicketStatusUpdateRequest updTicketReq)
-        //{
-        //    try
-        //    {
-        //        SupportTicket updTicket = _applicationDBContext.SupportTicket.Where(st => st.Id == updTicketReq.TicketId).FirstOrDefault();
+        [Authorize]
+        [HttpPost("Close-Ticket")]
+        public async Task<IActionResult> CloseTicketAsync(TicketStatusUpdateRequest updTicketReq)
+        {
+            try
+            {
+                SupportTicket updTicket = _applicationDBContext.SupportTicket.Where(st => st.Id == updTicketReq.TicketId).FirstOrDefault();
 
-        //        updTicket.StatusId = updTicketReq.StatusId;
+                updTicket.StatusId = 3;
+                updTicket.DateClosed = DateTime.Now;
+                updTicket.ClosedBy = updTicketReq.UpdatedBy;
+
+                _applicationDBContext.SupportTicket.Update(updTicket);
+                await _applicationDBContext.SaveChangesAsync();
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+
+        }
+
+        [Authorize]
+        [HttpPost("Park-Ticket")]
+        public async Task<IActionResult> ParkTicketAsync(ParkTicketRequest updTicketReq)
+        {
+            try
+            {
+                #region Upate Ticket Status
+
+                SupportTicket updTicket = _applicationDBContext.SupportTicket.Where(st => st.Id == updTicketReq.TicketId).FirstOrDefault();
+                updTicket.StatusId = 4;
+                _applicationDBContext.SupportTicket.Update(updTicket);
+                await _applicationDBContext.SaveChangesAsync();
+                #endregion
+
+                #region Add Comment
+                TicketComment newComment = new TicketComment();
+                newComment.TicketId = updTicketReq.TicketId;
+                newComment.Comment = updTicketReq.ParkComment;
+                newComment.CreatedBy = updTicketReq.ParkedBy;
+                newComment.DateCreated = DateTime.Now;
+
+                _applicationDBContext.TicketComment.Add(newComment);
+                await _applicationDBContext.SaveChangesAsync();
+                #endregion
 
 
 
-        //        _applicationDBContext.SupportTicket.Update(updTicket);
-        //        await _applicationDBContext.SaveChangesAsync();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
 
-        //        return Ok();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(500, ex.Message);
-        //    }
-
-        //}
+        }
 
 
         [Authorize]
@@ -301,7 +337,7 @@ namespace MTS.ServiceDesk.Server.Controllers
 
         [Authorize]
         [HttpPost("Create-Comment")]
-        public async Task<IActionResult> CreateTicketAsync(TicketCommentCreateUpdateRequest newCommentReq)
+        public async Task<IActionResult> CreateTicketCommentAsync(TicketCommentCreateUpdateRequest newCommentReq)
         {
             try
             {

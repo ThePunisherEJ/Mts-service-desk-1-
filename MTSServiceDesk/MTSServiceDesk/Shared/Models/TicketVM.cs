@@ -69,4 +69,12 @@ namespace MTS.ServiceDesk.Shared.Models
 
     }
 
+    public class ParkTicketRequest
+    {
+        public int TicketId { get; set; }
+        public string ParkedBy { get; set; }
+        public string ParkComment { get; set; }
+
+    }
+
 }
