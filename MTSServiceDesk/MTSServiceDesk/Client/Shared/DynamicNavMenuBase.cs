@@ -70,8 +70,8 @@ namespace MTS.ServiceDesk.Client.Shared
             DynMenuItem menu1 = new DynMenuItem();
             menu1.ID = 1;
             menu1.ParentID = 0;
-            menu1.Name = "Log Ticket";
-            menu1.NavTo = "LogTicket";
+            menu1.Name = "Tickets";
+            menu1.NavTo = "TicketsHome";
             menu1.IsLeaf = true;
             menu1.AllowAnonymous = false;
             menu1.RequiredPermissions = "Admin, User, Consultant";

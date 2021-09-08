@@ -1,0 +1,53 @@
+﻿@page "/TicketsHome"
+@inject HttpClient httpClient
+
+<h3>Test Tickets</h3>
+
+@if (allTickets == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>System</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Created by</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var tck in allTickets)
+            {
+            <tr>
+                <td>@tck.Id</td>
+                <td>@tck.SystemName</td>
+                <td>@tck.Description</td>
+                <td>@tck.StatusName</td>
+                <td>@tck.CreatedByName</td>
+
+
+
+
+
+            </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+
+    private List<TicketDetails> allTickets;
+
+    protected override async Task OnInitializedAsync()
+    {
+        allTickets = await httpClient.GetFromJsonAsync<List<TicketDetails>>("api/ticket/Get-All-Tickets-For-Client/1");
+
+        //return base.OnInitializedAsync();
+    }
+}
