@@ -17,6 +17,8 @@ namespace MTS.ServiceDesk.Server.Models
         public int SystemId { get; set; }
         public string Description { get; set; }
         public int StatusId { get; set; }
+        public DateTime? DateClosed { get; set; }
+        public string ClosedBy { get; set; }
 
         public virtual SupportClient Client { get; set; }
         public virtual TicketStatus Status { get; set; }

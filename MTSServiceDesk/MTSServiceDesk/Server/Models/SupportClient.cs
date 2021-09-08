@@ -7,7 +7,6 @@ namespace MTS.ServiceDesk.Server.Models
     {
         public SupportClient()
         {
-            AspNetUsers = new HashSet<AspNetUsers>();
             SupportTicket = new HashSet<SupportTicket>();
             Systems = new HashSet<Systems>();
         }
@@ -19,7 +18,6 @@ namespace MTS.ServiceDesk.Server.Models
         public int StatusId { get; set; }
 
         public virtual Status Status { get; set; }
-        public virtual ICollection<AspNetUsers> AspNetUsers { get; set; }
         public virtual ICollection<SupportTicket> SupportTicket { get; set; }
         public virtual ICollection<Systems> Systems { get; set; }
     }
