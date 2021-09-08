@@ -1,6 +1,6 @@
 ﻿
 
-Scaffold-DbContext "Server=tcp:mtsdevsql-sa.database.windows.net,1433;Initial Catalog=MTSServiceDesk;Persist Security Info=False;User ID=servicedeskadmin;Password=SDAdm1n!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -ContextDir Data -Force -Context ApplicationDBContext -Tables "AspNetUsers", "UserStatus", "SupportClient", "Status", "Systems"  -UseDatabaseNames
+Scaffold-DbContext "Server=tcp:mtsdevsql-sa.database.windows.net,1433;Initial Catalog=MTSServiceDesk;Persist Security Info=False;User ID=servicedeskadmin;Password=SDAdm1n!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -ContextDir Data -Force -Context ApplicationDBContext -Tables "AspNetUsers", "UserStatus", "SupportClient", "Status", "Systems", "TicketStatus","SupportTicket","TicketComment"  -UseDatabaseNames
 
 
 

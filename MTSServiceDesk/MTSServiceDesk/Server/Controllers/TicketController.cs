@@ -21,7 +21,7 @@ namespace MTS.ServiceDesk.Server.Controllers
 
         }
 
-
+        //Get Statuses
         //Get all tickets for Client
         //Get open tickets for client
         //Get Ticket by ID
