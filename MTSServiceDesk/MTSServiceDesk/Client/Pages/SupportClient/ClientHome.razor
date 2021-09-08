@@ -4,8 +4,7 @@
 @inherits ClientHomeBase
 
 
-
-<h3> <strong>Client Home</strong></h3>
+<h1 class="font-weight-bold mb-3">Clients</h1>
 
 @if (clients == null)
 {
@@ -14,62 +13,66 @@
 else
 {
 <EditForm Model="clients">
-    @*<link href="css/MTS-CSS.css" rel="stylesheet" />
-    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
-    <link href="css/app.css" rel="stylesheet" />
-    <link href="_content/Blazored.Modal/blazored-modal.css" rel="stylesheet" />*@
-    <table class="table">
-        <thead class="MTS-CSS-tableHead">
+    <label class="MTS-CSS-label-variant-04">
+        New Client
+        <button class="MTS-CSS-iconButton" @onclick="@NewClientClick"><span style="color: rgb(0, 167, 157)"> <i class="fas fa-plus-circle" style="font-size: 14px;" /> </span></button>
+    </label>
+    <div class="MTS-CSS-scrollableTable">
+        <table class="table MTS-CSS-table">
+            <thead class="MTS-CSS-tableHead">
 
-            <tr class="table-row">
+                <tr class="table-row">
 
-                <th>ID</th>
-                <th>Name</th>
-                <th>Domain</th>
-                <th>Status</th>
-               
-                <th><button class="MTS-CSS-iconButton" @onclick="@NewClientClick"> <span style="color: rgb(0, 167, 157)"> <i class="fas fa-plus-circle" style="font-size: 14px;" /> </span>Add New</button></th>
-                
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var client in clients)
-            {
-            <tr class="MTS-CSS-tableRow">
-                <td>@client.Id</td>
-                <td>@client.Name</td>
-                <td>@client.DomainName</td>
-                <td>
-                    <label class="MTS-CSS-toggleSwitchContainer">
-                        
-                        <InputCheckbox class="MTS-CSS-checkBox"  @bind-Value="client.IsEnabled" disabled />
-                        
-                        <span class="MTS-CSS-slider"></span>
+                    <th class="text-white MTS-CSS-tableVerticalBorder p-2">ID</th>
+                    <th class="text-white p-2">Name</th>
+                    <th class="text-white p-2" >Domain</th>
+                    <th class="text-white p-2">Status</th>
+                    <th></th>
 
-                    </label>
-                </td>
-                @if(client.IsEnabled == true)
+
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var client in clients)
                 {
-                 <td>
+                    <tr class="MTS-CSS-tableRow">
+                        <td>@client.Id</td>
+                        <td>@client.Name</td>
+                        <td>@client.DomainName</td>
+                        <td>
+                            <label class="MTS-CSS-toggleSwitchContainer">
 
-                     <button class="MTS-CSS-iconButton" @onclick="()=>UpdateClientClick(client.Id)"> <span style="color: rgb(60, 90, 108)"> <i class="far fa-edit" style="font-size: 14px;" /> </span>Edit</button>  &nbsp;  &nbsp;
-                <button class="btn btn-sm w-30 text-white MTS-CSS-button-variant-03" style="float: right; margin: 5px" @onclick="()=>ShowConfirmationModalForDisable(client.Id)">Disable</button>
-                 </td>
-                }
-                else 
-                { 
-            <td>
-                <button class="MTS-CSS-iconButton" @onclick="()=>UpdateClientClick(client.Id)"> <span style="color: rgb(60, 90, 108)"> <i class="far fa-edit" style="font-size: 14px;" /> </span>Edit</button>  &nbsp;  &nbsp;
-                <button class="btn btn-sm w-30 text-white MTS-CSS-button-variant-03" style="float:right; margin:5px" @onclick="()=>ShowConfirmationModalForEnable(client.Id)">Enable</button>
+                                <InputCheckbox class="MTS-CSS-checkBox" @bind-Value="client.IsEnabled" disabled />
 
-            </td>
+                                <span class="MTS-CSS-slider"></span>
+
+                            </label>
+                        </td>
+                        @if (client.IsEnabled == true)
+                        {
+                    <td>
+
+                        <button class="MTS-CSS-iconButton" style="float:right; margin:5px" @onclick="()=>UpdateClientClick(client.Id)"> <span style="color: rgb(60, 90, 108)"> <i class="far fa-edit" style="font-size: 14px;" /> </span></button>&nbsp; &nbsp;
+                        <button class="btn btn-sm w-30 text-white MTS-CSS-button-variant-03" style="margin: 5px" @onclick="()=>ShowConfirmationModalForDisable(client.Id)">Disable</button>
+                    </td>
+                        }
+                        else
+                        {
+                    <td>
+                        <button class="MTS-CSS-iconButton" style="float:right; margin:5px" @onclick="()=>UpdateClientClick(client.Id)"> <span style="color: rgb(60, 90, 108)"> <i class="far fa-edit" style="font-size: 14px;" /> </span></button> &nbsp; &nbsp;
+                        <button class="btn btn-sm w-30 text-white MTS-CSS-button-variant-03" style="margin:5px" @onclick="()=>ShowConfirmationModalForEnable(client.Id)">Enable</button>
+
+                    </td>
+                        }
+
+                    </tr>
                 }
-      
-            </tr>
-            }
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
 </EditForm>
+
 }
 
 
