@@ -70,6 +70,8 @@
     <Build Include="dbo\Tables\SupportClient.sql" />
     <Build Include="dbo\Tables\ApplicationSystem.sql" />
     <Build Include="dbo\Tables\Systems.sql" />
+    <Build Include="dbo\Tables\SupportTicket.sql" />
+    <Build Include="dbo\Tables\TicketComment.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\AspNetRoleClaims.sql" />
@@ -80,6 +82,7 @@
     <None Include="MTS.ServiceDesk.SQL.publish.xml" />
     <None Include="DEV - MTS.ServiceDesk.SQL.publish.xml" />
     <None Include="dbo\Seeder\SeedSystems.sql" />
+    <None Include="dbo\Seeder\SeedTicket.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\AspNetRoles.sql" />
