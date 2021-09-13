@@ -1,12 +1,13 @@
 ﻿@inherits ModalFailedBase
 @inject HttpClient httpClient
 
-    <div class="blazor-modal">
-        <h4>Error</h4>
+<div class="text-center">
+    <h4>Error</h4>
+    <span style="color: firebrick" class="text-center"><i class="fas fa-exclamation text-center" style="font-size:50px;"></i></span>
+    <button class="text-center mt-3 mb-3 font-weight-bold" @onclick="@ModalFailedShow" type="submit">Close</button>
 
-        <button style="text-align:center" class="MTS-CSS-button-variant-01 text-white" @onclick="@ModalFailedShow" type="submit">Close</button>
 </div>
-    <style>
+    @*<style>
         .blazor-modal {
             display: flow;
             flex-direction: column-reverse;
@@ -18,4 +19,4 @@
             padding: 1.5rem;
             z-index: 4;*/
         }
-    </style>
+    </style>*@

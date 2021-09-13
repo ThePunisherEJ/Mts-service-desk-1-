@@ -3,10 +3,10 @@
 @inject HttpClient httpClient
 @if (Id > 0)
 {
-    <h3><strong>Edit System</strong></h3>
+    <h2 class="font-weight-bold mb-3">Edit System</h2>
 }
 else
-{<h3><strong>New System</strong></h3>}
+{<h2 class="font-weight-bold mb-3">New System</h2>}
 <br />
 @if (systemsRequest != null)
 {
@@ -14,45 +14,50 @@ else
 <EditForm Model="systemsRequest" OnValidSubmit="FormSave" Context="EditForm">
     <DataAnnotationsValidator />
 
-    <label>Client ID</label><br />
-    <InputSelect @bind-Value="SelectedClientId" class="MTS-CSS-dropDownList">
+    <div class="mb-3 d-flex flex-row align-items-center">
+        <label class="MTS-CSS-label-variant-02">Client ID :</label>
+        <InputSelect @bind-Value="SelectedClientId" class="form-control ml-3 w-25 MTS-CSS-dropDownList">
 
-        @foreach (var client in clients)
-            {
-            <option value="@client.Id"> @client.Name</option>
+            @foreach (var client in clients)
+                {
+                <option value="@client.Id"> @client.Name</option>
 
-            }
-    </InputSelect>
+                }
+        </InputSelect>
+    </div>
 
     <br />
 
-
-    <label class="col-form-label" style="display:inline-block; text-align:right">Name</label><br />
-    <InputText class="MTS-CSS-inputText form-control" style="height:27px; width:350px" placeholder="Name" @bind-Value="systemsRequest.Name" />
-    <ValidationMessage For="@(() => systemsRequest.Name)" />
-    
-    <label class="col-form-label" style="display:inline-block; text-align:right">Description</label><br />
-    <InputText class="MTS-CSS-inputText form-control" style="height:27px; width:350px" placeholder="Description" @bind-Value="systemsRequest.Description" />
-    <ValidationMessage For="@(() => systemsRequest.Description)" />
+    <div class="d-flex flex-row align-items-center">
+        <label class="MTS-CSS-label-variant-04">Name</label>
+        <InputText class="form-control MTS-CSS-inputText" style="width:190px; float:left;margin:5px;" placeholder="Name" @bind-Value="systemsRequest.Name" />
+        <ValidationMessage For="@(() => systemsRequest.Name)" />
+    </div><br />
+    <div class="d-flex flex-row align-items-center">
+        <label class="MTS-CSS-label-variant-04">Description</label><br />
+        <InputText class="form-control MTS-CSS-inputText" style="width:190px; float:left;margin:5px;" placeholder="Description" @bind-Value="systemsRequest.Description" />
+        <ValidationMessage For="@(() => systemsRequest.Description)" />
+    </div>
     <br />
     @*<label class="col-form-label" style="display:inline-block; text-align:right">ID</label><br />
-    <label class="col-form-label" style="display:inline-block; text-align:right" >@SysID</label><br />*@
-   
-    <label style="display: inline-block; text-align: right">Status</label> &nbsp;
+        <label class="col-form-label" style="display:inline-block; text-align:right" >@SysID</label><br />*@
+
+    <label class="MTS-CSS-label-variant-04">Status</label> &nbsp;
 
     <label class="MTS-CSS-toggleSwitchContainer">
 
-            <InputCheckbox class="MTS-CSS-checkBox" @bind-Value="SystemIsEnabled" />
+        <InputCheckbox class="MTS-CSS-checkBox" @bind-Value="SystemIsEnabled" />
 
-            <span class="MTS-CSS-slider"></span>
+        <span class="MTS-CSS-slider"></span>
 
-        </label>
-    <br /> 
+    </label>
     <br />
-    <button class="MTS-CSS-button-variant-01 text-white" type="submit">Save</button> &nbsp;
-    <button class="MTS-CSS-button-variant-04 text-white" type="button" @onclick="@NewSystemCancel">Cancel</button>
+    <br />
+    <div class="d-flex flex-row mt-3">
+        <button style="margin-right: 5%; width:100px;" class="btn btn-sm text-white MTS-CSS-button-variant-01"  type="submit">Save</button> &nbsp;
+        <button style="margin-left: 5%; width:100px;" class="btn btn-sm text-white MTS-CSS-button-variant-04" type="button" @onclick="@NewSystemCancel">Cancel</button>
 
-
+        </div>
 </EditForm>
    
     <br />

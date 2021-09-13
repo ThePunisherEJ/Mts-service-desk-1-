@@ -117,8 +117,9 @@ namespace MTS.ServiceDesk.Client.Pages.UserMaintenance
         {
             var options = new ModalOptions()
             {
+                Class = "MTS-CSS-modal-variant-02",
                 HideCloseButton = true,
-                HideHeader = true,
+                DisableBackgroundCancel = true
 
 
             };
@@ -162,8 +163,9 @@ namespace MTS.ServiceDesk.Client.Pages.UserMaintenance
         {
             var options = new ModalOptions()
             {
+                Class = "MTS-CSS-modal-variant-02",
                 HideCloseButton = true,
-                HideHeader = true,
+                DisableBackgroundCancel = true
 
 
             };
@@ -208,8 +210,9 @@ namespace MTS.ServiceDesk.Client.Pages.UserMaintenance
 
             var optionSuccess = new ModalOptions()
             {
+                Class = "MTS-CSS-modal-variant-02",
                 HideCloseButton = true,
-                HideHeader = true,
+                DisableBackgroundCancel = true
 
 
             };
@@ -219,6 +222,7 @@ namespace MTS.ServiceDesk.Client.Pages.UserMaintenance
 
         protected async Task ModalFail()
         {
+
             var modalForm = Modal.Show<Shared.ModalFailed>("");
             ModalResult resultFail = await modalForm.Result;
 
@@ -229,8 +233,9 @@ namespace MTS.ServiceDesk.Client.Pages.UserMaintenance
         {
             var cancelOptions = new ModalOptions()
             {
+                Class = "MTS-CSS-modal-variant-02",
                 HideCloseButton = true,
-                HideHeader = true,
+                DisableBackgroundCancel = true
 
 
             };

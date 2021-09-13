@@ -137,8 +137,9 @@ namespace MTS.ServiceDesk.Client.Pages.Systems
         {
             var options = new ModalOptions()
             {
+                Class = "MTS-CSS-modal-variant-02",
                 HideCloseButton = true,
-                HideHeader = true,
+                DisableBackgroundCancel = true
 
 
             };
@@ -178,8 +179,9 @@ namespace MTS.ServiceDesk.Client.Pages.Systems
         {
             var options = new ModalOptions()
             {
+                Class = "MTS-CSS-modal-variant-02",
                 HideCloseButton = true,
-                HideHeader = true,
+                DisableBackgroundCancel = true
 
 
             };
@@ -224,8 +226,9 @@ namespace MTS.ServiceDesk.Client.Pages.Systems
 
             var optionSuccess = new ModalOptions()
             {
+                Class = "MTS-CSS-modal-variant-02",
                 HideCloseButton = true,
-                HideHeader = true,
+                DisableBackgroundCancel = true
 
 
             };
@@ -245,8 +248,9 @@ namespace MTS.ServiceDesk.Client.Pages.Systems
         {
             var cancelOptions = new ModalOptions()
             {
+                Class = "MTS-CSS-modal-variant-02",
                 HideCloseButton = true,
-                HideHeader = true,
+                DisableBackgroundCancel = true
 
 
             };
