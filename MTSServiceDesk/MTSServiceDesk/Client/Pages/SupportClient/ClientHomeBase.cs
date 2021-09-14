@@ -16,15 +16,13 @@ namespace MTS.ServiceDesk.Client.Pages.SupportClient
         #region DI
         [Inject] protected HttpClient httpClient { get; set; }
         [Inject] protected NavigationManager navigationManager { get; set; }
+        
         #endregion
         #region PropertiesAndParameters
         [CascadingParameter]
         public IModalService Modal { get; set; }
-        
+        protected List<SupportClientDetails> clients;
         #endregion
-        protected List<SupportClientDetails>  clients;
-       
-       
         protected override async Task OnInitializedAsync()
         {
 
@@ -73,17 +71,19 @@ namespace MTS.ServiceDesk.Client.Pages.SupportClient
                 var response = await httpClient.PostAsJsonAsync("api/SupportClient/enable-supportclient/" + clientID.ToString(), "");
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    var optionsSuccess = new ModalOptions()
-                    {
-                        Class = "MTS-CSS-modal-variant-02",
-                        HideCloseButton = true,
-                        DisableBackgroundCancel = true
+                    //var optionsSuccess = new ModalOptions()
+                    //{
+                    //    Class = "MTS-CSS-modal-variant-02",
+                    //    HideCloseButton = true,
+                    //    DisableBackgroundCancel = true
 
 
-                    };
+                    //};
 
-                    var modalApiResponse = Modal.Show<Shared.ModalSuccess>("",optionsSuccess);
-                    ModalResult resultSuccess = await modalApiResponse.Result;
+                    //var modalApiResponse = Modal.Show<Shared.ModalSuccess>("",optionsSuccess);
+                    //ModalResult resultSuccess = await modalApiResponse.Result;
+
+                    await ModalSaved("Client Enabled Successfully");
 
                 }
                 else
@@ -126,16 +126,17 @@ namespace MTS.ServiceDesk.Client.Pages.SupportClient
                 var response = await httpClient.PostAsJsonAsync("api/SupportClient/disable-supportclient/" + clientID.ToString(), "");
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    var optionsSuccess = new ModalOptions()
-                    {
-                        HideCloseButton = true,
-                        HideHeader = true,
+                    //var optionsSuccess = new ModalOptions()
+                    //{
+                    //    HideCloseButton = true,
+                    //    HideHeader = true,
 
 
-                    };
+                    //};
 
-                    var modalApiResponse = Modal.Show<Shared.ModalSuccess>("", optionsSuccess);
-                    ModalResult resultSuccess = await modalApiResponse.Result;
+                    //var modalApiResponse = Modal.Show<Shared.ModalSuccess>("", optionsSuccess);
+                    //ModalResult resultSuccess = await modalApiResponse.Result;
+                    await ModalSaved("Client Disabled Successfully");
 
                 }
                 else
@@ -149,6 +150,24 @@ namespace MTS.ServiceDesk.Client.Pages.SupportClient
 
             }
 
+        }
+
+        protected async Task ModalSaved(string SuccessMessage)
+        {
+
+
+            var optionSuccess = new ModalOptions()
+            {
+                Class = "MTS-CSS-modal-variant-02",
+                HideCloseButton = true,
+                DisableBackgroundCancel = true
+
+
+            };
+            var parameters = new ModalParameters();
+            parameters.Add(nameof(Shared.ModalSuccess.SuccessMessage), SuccessMessage);
+
+            var ModalForm = Modal.Show<Shared.ModalSuccess>("", parameters, optionSuccess);
         }
 
     }

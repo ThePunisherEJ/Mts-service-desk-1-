@@ -17,6 +17,8 @@ namespace MTS.ServiceDesk.Client.Shared
 
         [CascadingParameter]
         protected BlazoredModalInstance blazoredModal { get; set; }
+        [Parameter]
+        public string SuccessMessage { get; set; }
         #endregion
 
         public void ModalSuccessShow()

@@ -160,7 +160,7 @@ namespace MTS.ServiceDesk.Client.Pages.Systems
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     //Show success modal
-                    await ModalSaved();
+                    await ModalSaved(systemsRequest.Name + " Updated Successfully");
 
                     navigationManager.NavigateTo("SystemsHome");
                 }
@@ -206,7 +206,7 @@ namespace MTS.ServiceDesk.Client.Pages.Systems
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     //Show success modal
-                    await ModalSaved();
+                    await ModalSaved(systemsRequest.Name + " Created Successfully");
 
                     navigationManager.NavigateTo("SystemsHome");
                 }
@@ -220,7 +220,7 @@ namespace MTS.ServiceDesk.Client.Pages.Systems
 
             }
         }
-        protected async Task ModalSaved()
+        protected async Task ModalSaved(string SuccessMessage)
         {
 
 
@@ -232,8 +232,10 @@ namespace MTS.ServiceDesk.Client.Pages.Systems
 
 
             };
-            var modalForm = Modal.Show<Shared.ModalSuccess>("", optionSuccess);
-            ModalResult resultSuccess = await modalForm.Result;
+            var parameters = new ModalParameters();
+            parameters.Add(nameof(Shared.ModalSuccess.SuccessMessage), SuccessMessage);
+
+            var ModalForm = Modal.Show<Shared.ModalSuccess>("", parameters, optionSuccess);
         }
 
         protected async Task ModalFail()
