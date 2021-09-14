@@ -4,10 +4,10 @@
 
 @if (UserId != Guid.Empty.ToString())
 {
-<h2 class="font-weight-bold mb-3">Edit Client</h2>
+<h2 class="font-weight-bold mb-3">Edit User</h2>
 }
 else
-{<h2 class="font-weight-bold mb-3">New Client</h2>}
+{<h2 class="font-weight-bold mb-3">New User</h2>}
 <br />
 @if (UserId != Guid.Empty.ToString())
 {<label class="MTS-CSS-label-variant-01">UserId</label><br />
@@ -78,13 +78,15 @@ else
     </label>
     <br />  <br />
     <div class="d-flex flex-row mt-3">
-        <button style="margin-right: 5%; width:100px;" class="btn btn-sm text-white MTS-CSS-button-variant-01"  type="submit">Save</button> &nbsp;
-        <button style="margin-left: 5%; width:100px;" class="btn btn-sm text-white MTS-CSS-button-variant-04" type="button" @onclick="@NewUserCancel">Cancel</button>
+        <button style="margin-right: 5%; " class="btn btn-sm text-white MTS-CSS-button-variant-01"  type="submit">Save</button> &nbsp;
+        <button style="margin-left: 5%;" class="btn btn-sm text-white MTS-CSS-button-variant-04" type="button" @onclick="@NewUserCancel">Cancel</button>
         </div>
 
 </EditForm>
-<br />
-<br />
-<br />
+<style>
+    button {
+        width: 14%;
+    }
+</style>
 }
 

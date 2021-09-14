@@ -38,16 +38,17 @@ else
     </label>
     <br />
 
-    <div class="d-flex flex-row mt-2 mb-3 align-items-center justify-content-between">
-        <label class="MTS-CSS-label-variant-04">Logo</label>
-        <div class="d-flex flex-row align-items-center">
-            <InputFile accept=".jpeg" style="color: transparent; width:105px; float:left;" OnChange="HandleSelection" />
+    @*<div class="d-flex flex-row mt-2 mb-3 align-items-center justify-content-between">*@
+        <label class="MTS-CSS-label-variant-04">Logo:</label>
+        @*<div class="d-flex flex-row align-items-center">*@
+            <InputFile accept=".jpeg" style="color: transparent; width:105px;" OnChange="HandleSelection" />
             @if (!string.IsNullOrEmpty(imageDataUri))
-            {
+            {  
                 <img class="MTS-CSS-logo" src="@imageDataUri" />
 
-                @*<meta name="viewport" content="width=device-width, initial-scale=1">*@
-                @*<style>
+                <meta name="viewport" content="width=device-width, initial-scale=1">
+                <style>
+                    
                 img {
                     border: 1px solid #ddd;
                     border-radius: 4px;
@@ -58,29 +59,33 @@ else
                     img:hover {
                         box-shadow: 0 0 10px rgb(0, 167, 157);
                     }
-            </style>*@
+            </style>
 
 
 
 
             }
+        @*</div>
+
+
+    </div>*@
+
+    <div class="d-flex flex-row mt-3">
+      
+        <button  style="margin-right: 5%;" class="btn btn-sm text-white MTS-CSS-button-variant-01" type="submit">Save</button>
+
+        <button  style="margin-left: 5%;" class="btn btn-sm text-white MTS-CSS-button-variant-04" type="button" @onclick="@NewClientCancel">Cancel</button>
         </div>
-
-        
-    </div>
-
-
-        <br />  <br />
-        <button class="MTS-CSS-button-variant-01 text-white" type="submit">Save</button>
-
-        <button class="MTS-CSS-button-variant-04 text-white" type="button" @onclick="@NewClientCancel">Cancel</button>
-        <br /> <br />
 
 
 
 
 
 </EditForm>
-
+<style>
+    button {
+        width: 13%;
+    }
+</style>
 }
 
