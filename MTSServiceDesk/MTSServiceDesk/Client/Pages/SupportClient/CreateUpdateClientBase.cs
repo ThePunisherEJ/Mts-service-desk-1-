@@ -121,8 +121,9 @@ namespace MTS.ServiceDesk.Client.Pages.SupportClient
         {
             var options = new ModalOptions()
             {
+                Class = "MTS-CSS-modal-variant-02",
                 HideCloseButton = true,
-                HideHeader = true,
+                DisableBackgroundCancel = true
 
 
             };
@@ -143,7 +144,7 @@ namespace MTS.ServiceDesk.Client.Pages.SupportClient
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     //Show success modal
-                    await ModalSaved();
+                    await ModalSaved(ClientRequest.Name + " Succesfully Updated");
 
                     navigationManager.NavigateTo("SupportClientsHome");
                 }
@@ -162,8 +163,9 @@ namespace MTS.ServiceDesk.Client.Pages.SupportClient
         {
             var options = new ModalOptions()
             {
+                Class = "MTS-CSS-modal-variant-02",
                 HideCloseButton = true,
-                HideHeader = true,
+                DisableBackgroundCancel = true
 
 
             };
@@ -188,7 +190,7 @@ namespace MTS.ServiceDesk.Client.Pages.SupportClient
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     //Show success modal
-                    await ModalSaved();
+                    await ModalSaved("Client Created Successfully");
 
                     navigationManager.NavigateTo("SupportClientsHome");
                 }
@@ -202,7 +204,7 @@ namespace MTS.ServiceDesk.Client.Pages.SupportClient
 
             }
         }
-        protected async Task ModalSaved()
+        protected async Task ModalSaved(string SuccessMessage)
         {
            
 
@@ -213,8 +215,12 @@ namespace MTS.ServiceDesk.Client.Pages.SupportClient
 
 
             };
-            var modalForm = Modal.Show<Shared.ModalSuccess>("",optionSuccess);
-            ModalResult resultSuccess = await modalForm.Result;
+            //var modalForm = Modal.Show<Shared.ModalSuccess>("",optionSuccess);
+            //ModalResult resultSuccess = await modalForm.Result;
+            var parameters = new ModalParameters();
+            parameters.Add(nameof(Shared.ModalSuccess.SuccessMessage), SuccessMessage);
+
+            var ModalForm = Modal.Show<Shared.ModalSuccess>("", parameters, optionSuccess);
         }
 
         protected async Task ModalFail()
@@ -229,8 +235,9 @@ namespace MTS.ServiceDesk.Client.Pages.SupportClient
         {
             var cancelOptions = new ModalOptions()
             {
+                Class = "MTS-CSS-modal-variant-02",
                 HideCloseButton = true,
-                HideHeader = true,
+                DisableBackgroundCancel = true
 
 
             };
