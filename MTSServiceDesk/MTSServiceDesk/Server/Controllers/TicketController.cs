@@ -99,7 +99,7 @@ namespace MTS.ServiceDesk.Server.Controllers
 
 
         [Authorize]
-        [HttpGet("Get-Tickest-For-Client/{clientId}/{statusId}")]
+        [HttpGet("Get-Tickets-For-Client/{clientId}/{statusId}")]
         public async Task<IActionResult> GetTicketsForClientAsync(string clientId, string statusId)
         {
             try
@@ -173,7 +173,7 @@ namespace MTS.ServiceDesk.Server.Controllers
 
 
         [Authorize(Roles = "Admin")]
-        [HttpGet("Get-Tickest-For-AllClients/{statusId}")]
+        [HttpGet("Get-Tickets-For-AllClients/{statusId}")]
         public async Task<IActionResult> GetTicketsForAllClientsAsync(string statusId)
         {
             try

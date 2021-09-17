@@ -46,7 +46,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        allTickets = await httpClient.GetFromJsonAsync<List<TicketDetails>>("api/ticket/Get-All-Tickets-For-Client/1");
+        allTickets = await httpClient.GetFromJsonAsync<List<TicketDetails>>("api/ticket/Get-Tickets-For-Client/1/0");
 
         //return base.OnInitializedAsync();
     }
