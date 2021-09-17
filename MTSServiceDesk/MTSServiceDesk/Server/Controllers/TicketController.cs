@@ -56,38 +56,112 @@ namespace MTS.ServiceDesk.Server.Controllers
 
 
 
+        //[Authorize]
+        //[HttpGet("Get-All-Tickets-For-Client/{clientId}")]
+        //public async Task<IActionResult> GetAllTicketsForClientAsync(string clientId)
+        //{
+        //    try
+        //    {
+        //        List<TicketDetails> searchResult = (from st in _applicationDBContext.SupportTicket.Where(st =>st.ClientId == int.Parse(clientId))
+        //                                                join cl in _applicationDBContext.SupportClient
+        //                                                    on st.ClientId equals cl.Id
+        //                                                join sys in _applicationDBContext.Systems
+        //                                                    on st.SystemId equals sys.Id
+        //                                                join status in _applicationDBContext.TicketStatus
+        //                                                    on st.StatusId equals status.Id 
+        //                                                  select new TicketDetails
+        //                                                  {
+        //                                                      Id = st.Id,
+        //                                                      ClientId = st.ClientId,
+        //                                                      ClientName=cl.Name,
+        //                                                      CreatedBy=st.CreatedBy,
+        //                                                      CreatedByName = "",
+        //                                                      DateCreated = st.DateCreated,
+        //                                                      Description = st.Description,
+        //                                                      StatusId=st.StatusId,
+        //                                                      StatusName=status.Name,
+        //                                                      SystemId = st.SystemId,
+        //                                                      SystemName = sys.Name
+        //                                                  }).ToList<TicketDetails>();
+
+        //        List<ApplicationUser> users = _userManager.Users.ToList();
+
+        //        searchResult.ForEach(sr => sr.CreatedByName = users.Find(u => u.Id == sr.CreatedBy).FirstName + " " + users.Find(u => u.Id == sr.CreatedBy).LastName);
+
+
+        //        return Ok(searchResult);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(500, ex.Message);
+        //    }
+        //}
+
+
         [Authorize]
-        [HttpGet("Get-All-Tickets-For-Client/{clientId}")]
-        public async Task<IActionResult> GetAllTicketsForClientAsync(string clientId)
+        [HttpGet("Get-Tickest-For-Client/{clientId}/{statusId}")]
+        public async Task<IActionResult> GetTicketsForClientAsync(string clientId, string statusId)
         {
             try
             {
-                List<TicketDetails> searchResult = (from st in _applicationDBContext.SupportTicket.Where(st =>st.ClientId == int.Parse(clientId))
+                int clientIdInt = int.Parse(clientId);
+                int statusIdInt = int.Parse(statusId);
+                List<TicketDetails> searchResult = new List<TicketDetails>();
+                if (statusIdInt == 0)
+                {
+
+                    searchResult = (from st in _applicationDBContext.SupportTicket.Where(st => st.ClientId == clientIdInt)
                                                         join cl in _applicationDBContext.SupportClient
                                                             on st.ClientId equals cl.Id
                                                         join sys in _applicationDBContext.Systems
                                                             on st.SystemId equals sys.Id
                                                         join status in _applicationDBContext.TicketStatus
-                                                            on st.StatusId equals status.Id 
-                                                          select new TicketDetails
-                                                          {
-                                                              Id = st.Id,
-                                                              ClientId = st.ClientId,
-                                                              ClientName=cl.Name,
-                                                              CreatedBy=st.CreatedBy,
-                                                              CreatedByName = "",
-                                                              DateCreated = st.DateCreated,
-                                                              Description = st.Description,
-                                                              StatusId=st.StatusId,
-                                                              StatusName=status.Name,
-                                                              SystemId = st.SystemId,
-                                                              SystemName = sys.Name
-                                                          }).ToList<TicketDetails>();
+                                                            on st.StatusId equals status.Id
+                                                        select new TicketDetails
+                                                        {
+                                                            Id = st.Id,
+                                                            ClientId = st.ClientId,
+                                                            ClientName = cl.Name,
+                                                            CreatedBy = st.CreatedBy,
+                                                            CreatedByName = "",
+                                                            DateCreated = st.DateCreated,
+                                                            Description = st.Description,
+                                                            StatusId = st.StatusId,
+                                                            StatusName = status.Name,
+                                                            SystemId = st.SystemId,
+                                                            SystemName = sys.Name
+                                                        }).ToList<TicketDetails>();
+
+                }
+                else
+                {
+
+                    searchResult = (from st in _applicationDBContext.SupportTicket.Where(st => st.ClientId == clientIdInt && st.StatusId == statusIdInt)
+                                                        join cl in _applicationDBContext.SupportClient
+                                                            on st.ClientId equals cl.Id
+                                                        join sys in _applicationDBContext.Systems
+                                                            on st.SystemId equals sys.Id
+                                                        join status in _applicationDBContext.TicketStatus
+                                                            on st.StatusId equals status.Id
+                                                        select new TicketDetails
+                                                        {
+                                                            Id = st.Id,
+                                                            ClientId = st.ClientId,
+                                                            ClientName = cl.Name,
+                                                            CreatedBy = st.CreatedBy,
+                                                            CreatedByName = "",
+                                                            DateCreated = st.DateCreated,
+                                                            Description = st.Description,
+                                                            StatusId = st.StatusId,
+                                                            StatusName = status.Name,
+                                                            SystemId = st.SystemId,
+                                                            SystemName = sys.Name
+                                                        }).ToList<TicketDetails>();
+                }
 
                 List<ApplicationUser> users = _userManager.Users.ToList();
 
                 searchResult.ForEach(sr => sr.CreatedByName = users.Find(u => u.Id == sr.CreatedBy).FirstName + " " + users.Find(u => u.Id == sr.CreatedBy).LastName);
-
 
                 return Ok(searchResult);
             }
@@ -97,34 +171,65 @@ namespace MTS.ServiceDesk.Server.Controllers
             }
         }
 
-        
-        [Authorize]
-        [HttpGet("Get-Open-Tickest-For-Client/{clientId}")]
-        public async Task<IActionResult> GetOpenTicketsForClientAsync(string clientId)
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet("Get-Tickest-For-AllClients/{statusId}")]
+        public async Task<IActionResult> GetTicketsForAllClientsAsync(string statusId)
         {
             try
             {
-                List<TicketDetails> searchResult = (from st in _applicationDBContext.SupportTicket.Where(st => st.ClientId == int.Parse(clientId) && (st.StatusId==1 || st.StatusId==2) )
-                                                    join cl in _applicationDBContext.SupportClient
-                                                        on st.ClientId equals cl.Id
-                                                    join sys in _applicationDBContext.Systems
-                                                        on st.SystemId equals sys.Id
-                                                    join status in _applicationDBContext.TicketStatus
-                                                        on st.StatusId equals status.Id
-                                                    select new TicketDetails
-                                                    {
-                                                        Id = st.Id,
-                                                        ClientId = st.ClientId,
-                                                        ClientName = cl.Name,
-                                                        CreatedBy = st.CreatedBy,
-                                                        CreatedByName = "",
-                                                        DateCreated = st.DateCreated,
-                                                        Description = st.Description,
-                                                        StatusId = st.StatusId,
-                                                        StatusName = status.Name,
-                                                        SystemId = st.SystemId,
-                                                        SystemName = sys.Name
-                                                    }).ToList<TicketDetails>();
+                int statusIdInt = int.Parse(statusId);
+
+                List<TicketDetails> searchResult = new List<TicketDetails>();
+
+                if (statusIdInt == 0)
+                {
+                    searchResult = (from st in _applicationDBContext.SupportTicket
+                                    join cl in _applicationDBContext.SupportClient
+                                        on st.ClientId equals cl.Id
+                                    join sys in _applicationDBContext.Systems
+                                        on st.SystemId equals sys.Id
+                                    join status in _applicationDBContext.TicketStatus
+                                        on st.StatusId equals status.Id
+                                    select new TicketDetails
+                                    {
+                                        Id = st.Id,
+                                        ClientId = st.ClientId,
+                                        ClientName = cl.Name,
+                                        CreatedBy = st.CreatedBy,
+                                        CreatedByName = "",
+                                        DateCreated = st.DateCreated,
+                                        Description = st.Description,
+                                        StatusId = st.StatusId,
+                                        StatusName = status.Name,
+                                        SystemId = st.SystemId,
+                                        SystemName = sys.Name
+                                    }).ToList<TicketDetails>(); 
+                }
+                else 
+                {
+                    searchResult = (from st in _applicationDBContext.SupportTicket.Where(st => st.StatusId == statusIdInt)
+                                    join cl in _applicationDBContext.SupportClient
+                                        on st.ClientId equals cl.Id
+                                    join sys in _applicationDBContext.Systems
+                                        on st.SystemId equals sys.Id
+                                    join status in _applicationDBContext.TicketStatus
+                                        on st.StatusId equals status.Id
+                                    select new TicketDetails
+                                    {
+                                        Id = st.Id,
+                                        ClientId = st.ClientId,
+                                        ClientName = cl.Name,
+                                        CreatedBy = st.CreatedBy,
+                                        CreatedByName = "",
+                                        DateCreated = st.DateCreated,
+                                        Description = st.Description,
+                                        StatusId = st.StatusId,
+                                        StatusName = status.Name,
+                                        SystemId = st.SystemId,
+                                        SystemName = sys.Name
+                                    }).ToList<TicketDetails>();
+                }
 
                 List<ApplicationUser> users = _userManager.Users.ToList();
 
@@ -140,7 +245,6 @@ namespace MTS.ServiceDesk.Server.Controllers
 
 
 
- 
         [Authorize]
         [HttpGet("Get-Ticket/{ticketId}")]
         public async Task<IActionResult> GetTicketByIdAsync(string ticketId)
