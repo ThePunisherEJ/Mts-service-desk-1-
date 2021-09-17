@@ -76,8 +76,9 @@ namespace MTS.ServiceDesk.Client.Pages.UserMaintenance
         {
             var options = new ModalOptions()
             {
+                Class = "MTS-CSS-modal-variant-02",
                 HideCloseButton = true,
-                HideHeader = true,
+                DisableBackgroundCancel = true
 
 
             };
@@ -97,16 +98,17 @@ namespace MTS.ServiceDesk.Client.Pages.UserMaintenance
                 var response = await httpClient.PostAsJsonAsync("api/auth/enable-user/" + userID.ToString(), "");
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    var optionsSuccess = new ModalOptions()
-                    {
-                        HideCloseButton = true,
-                        HideHeader = true,
+                    //var optionsSuccess = new ModalOptions()
+                    //{
+                    //    HideCloseButton = true,
+                    //    HideHeader = true,
 
 
-                    };
+                    //};
 
-                    var modalApiResponse = Modal.Show<Shared.ModalSuccess>("", optionsSuccess);
-                    ModalResult resultSuccess = await modalApiResponse.Result;
+                    //var modalApiResponse = Modal.Show<Shared.ModalSuccess>("", optionsSuccess);
+                    //ModalResult resultSuccess = await modalApiResponse.Result;
+                    await ModalSaved("User Enabled Successfully");
 
                 }
                 else
@@ -127,8 +129,9 @@ namespace MTS.ServiceDesk.Client.Pages.UserMaintenance
         {
             var options = new ModalOptions()
             {
+                Class = "MTS-CSS-modal-variant-02",
                 HideCloseButton = true,
-                HideHeader = true,
+                DisableBackgroundCancel = true
 
 
             };
@@ -148,16 +151,17 @@ namespace MTS.ServiceDesk.Client.Pages.UserMaintenance
                 var response = await httpClient.PostAsJsonAsync("api/auth/disable-user/" + userID.ToString(), "");
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    var optionsSuccess = new ModalOptions()
-                    {
-                        HideCloseButton = true,
-                        HideHeader = true,
+                    //var optionsSuccess = new ModalOptions()
+                    //{
+                    //    HideCloseButton = true,
+                    //    HideHeader = true,
 
 
-                    };
+                    //};
 
-                    var modalApiResponse = Modal.Show<Shared.ModalSuccess>("", optionsSuccess);
-                    ModalResult resultSuccess = await modalApiResponse.Result;
+                    //var modalApiResponse = Modal.Show<Shared.ModalSuccess>("", optionsSuccess);
+                    //ModalResult resultSuccess = await modalApiResponse.Result;
+                    await ModalSaved("User Disabled Successfully");
 
                 }
                 else
@@ -172,6 +176,24 @@ namespace MTS.ServiceDesk.Client.Pages.UserMaintenance
             }
 
 
+        }
+
+        protected async Task ModalSaved(string SuccessMessage)
+        {
+
+
+            var optionSuccess = new ModalOptions()
+            {
+                Class = "MTS-CSS-modal-variant-02",
+                HideCloseButton = true,
+                DisableBackgroundCancel = true
+
+
+            };
+            var parameters = new ModalParameters();
+            parameters.Add(nameof(Shared.ModalSuccess.SuccessMessage), SuccessMessage);
+
+            var ModalForm = Modal.Show<Shared.ModalSuccess>("", parameters, optionSuccess);
         }
 
     }
