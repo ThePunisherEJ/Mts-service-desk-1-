@@ -22,17 +22,33 @@
 </div-->
 
 <div class="main">
-    <div class="top-row">
+    <div class="align-items-center d-flex flex-row" style="height: 76px; justify-content: space-between; background-color: whitesmoke; border-bottom:solid; border-bottom-width:2px;">
         <AuthorizeView>
             <Authorized>
+                <h5 class="float-left align-content-center m-0 font-weight-bold "> MultiTier Service Desk </h5>
+                <div class="d-flex flex-column align-items-center " style="width: 200px; position: relative;">
+                    <button class="btn w-100 MTS-CSS-button-variant-02 text-white p-2" @onclick="() => ExpandCollapseMenu()">
+                        <i class="fas fa-user mr-1" style="font-size:14px;"></i>
+                        @context.User.Identity.Name
+                    </button>
+                    @*Hello @context.User.Identity.Name*@
+                    @if (Expand == true)
+                    {
+                        <ul id="userMenu" class="w-100" style="position: absolute; top:34px;">
 
-                Hello @context.User.Identity.Name
+                            @*<li id="userMenuItem" class="p-1 font-weight-bold align-items-center" @onclick="()=>ChangePasswordAsync()"><span style="color:goldenrod"><i class="fas fa-key"></i></span>&nbsp;Change Password</li>*@
 
-                <button type="button" class="btn btn-link ml-md-auto" @onclick="@LogoutClick">Logout</button>
+                            <li id="userMenuItem" class="p-1 font-weight-bold" @onclick="@LogoutClick"><span style="color:firebrick;"><i class="fas fa-sign-out-alt"></i></span>&nbsp;Logout</li>
 
-            </Authorized>
+                        </ul>
+                    }
+                    </div>
+
+                    @*<button type="button" class="btn btn-link ml-md-auto" @onclick="@LogoutClick">Logout</button>*@
+
+</Authorized>
             <NotAuthorized>
-                <button type="button" class="btn btn-link ml-md-auto" @onclick="@ShowLoginModal">Login</button>
+                <button class="btn MTS-CSS-button-variant-02 text-white p-2" style="width:200px; position:absolute; right:1.5rem;" @onclick="@ShowLoginModal">Login</button>
 
             </NotAuthorized>
         </AuthorizeView>
@@ -56,6 +72,7 @@
     //        navigationManager.NavigateTo("/login");
     //    }
     //}
+    public bool Expand { get; set; }
 
     void ShowLoginModal()
     {
@@ -76,4 +93,81 @@
         await authStateProvider.Logout();
         navigationManager.NavigateTo("/login");
     }
+    protected void ExpandCollapseMenu()
+    {
+        Expand = !Expand;
+    }
+
+
+
+    //protected async Task ChangePasswordAsync()
+    //{
+    //    BlazorModalHelper modalHelper = new BlazorModalHelper(ModalService);
+
+    //    try
+    //    {
+
+    //        ModalResult confirmResponse;
+
+    //        confirmResponse = await ShowChangePasswordgModalAsync();
+
+    //        if (confirmResponse.Cancelled)
+    //        {
+
+    //        }
+
+    //        else
+    //        {
+    //            modalHelper.ShowResultSuccessModal("Password Successfully Changed!");
+    //        }
+    //    }
+    //    catch (Exception ex)
+    //    {
+
+    //    }
+    //}
+
+
 }
+<style>
+    .blazored-modal {
+        /*height: 400px;*/
+        width: 300px;
+        padding-left: 45px;
+        padding-right: 45px;
+        /*padding-top: 0rem;
+        padding-bottom: 0rem;*/
+        background-color: whitesmoke;
+        /*background-image: linear-gradient(to bottom, rgb(60, 90, 108), rgb(55, 39, 77));*/
+        border-radius: 0%;
+        border-style: solid;
+        border-width: 0px;
+        box-shadow: 0 0 5px 1px black;
+    }
+
+    .blazored-modal-close {
+        color: black;
+    }
+
+    .blazored-modal-header {
+        padding: 0 0 1rem 0;
+    }
+
+    #userMenu {
+        background-color: lightgray;
+        border: solid;
+        border-width: 0.5px;
+        margin: 0px;
+        padding: 0px;
+        /*text-align:center;*/
+    }
+
+    #userMenuItem {
+        list-style-type: none;
+        margin: 5px;
+    }
+
+        #userMenuItem:hover {
+            background-color: gray;
+        }
+</style>
