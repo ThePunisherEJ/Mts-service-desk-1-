@@ -1,7 +1,9 @@
 ﻿@page "/TicketsHome"
 @inject HttpClient httpClient
+@inherits TicketsHomeBase
 
-<h3>Test Tickets</h3>
+
+<h1 class="font-weight-bold mb-3">Tickets Home</h1>
 
 @if (allTickets == null)
 {
@@ -9,38 +11,60 @@
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>System</th>
-                <th>Description</th>
-                <th>Status</th>
-                <th>Created by</th>
+<EditForm Model="allTickets">
+    <br />
+    <div class="mb-3 d-flex flex-row align-items-center">
+        <label class="MTS-CSS-label-variant-02"> Client : </label>
+        <InputSelect class="form-control ml-3 w-25 MTS-CSS-dropDownList" @bind-Value="SelectedClientId">
 
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var tck in allTickets)
-            {
-            <tr>
-                <td>@tck.Id</td>
-                <td>@tck.SystemName</td>
-                <td>@tck.Description</td>
-                <td>@tck.StatusName</td>
-                <td>@tck.CreatedByName</td>
+            @foreach (var client in clients)
+                {
+                <option value="@client.Id"> @client.Name</option>
+
+                }
+
+        </InputSelect> <br />
+    </div> 
+    <label class="MTS-CSS-label-variant-04">
+        New Ticket
+        <button @onclick="@NewTicketClick" class="MTS-CSS-iconButton"><span style="color: rgb(0, 167, 157)"> <i class="fas fa-plus-circle" style="font-size: 14px;" /> </span></button>
+    </label>
+
+    <div class="MTS-CSS-scrollableTable">
+        <table class="table MTS-CSS-table">
+            <thead class="MTS-CSS-tableHead">
+                <tr>
+                    <th class="text-white MTS-CSS-tableVerticalBorder p-2">ID</th>
+                    <th class="text-white p-2">System</th>
+                    <th class="text-white p-2">Description</th>
+                    <th class="text-white p-2">Status</th>
+                    <th class="text-white p-2">Created by</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var tck in allTickets)
+                {
+                    <tr class="MTS-CSS-tableRow">
+                        <td>@tck.Id</td>
+                        <td>@tck.SystemName</td>
+                        <td>@tck.Description</td>
+                        <td>@tck.StatusName</td>
+                        <td>@tck.CreatedByName</td>
 
 
 
 
 
-            </tr>
-            }
-        </tbody>
-    </table>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</EditForm>
 }
 
-@code {
+@*@code {
 
     private List<TicketDetails> allTickets;
 
@@ -50,4 +74,5 @@ else
 
         //return base.OnInitializedAsync();
     }
-}
+
+}*@

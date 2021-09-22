@@ -1,0 +1,83 @@
+﻿@page "/CreateUpdateTicket/{Id:int}"
+@inherits CreateUpdateTicketBase
+@inject HttpClient httpClient
+
+@if (Id > 0)
+{
+    <h2 class="font-weight-bold mb-3">Edit Ticket</h2>
+}
+else
+{<h2 class="font-weight-bold mb-3">New Ticket</h2>}
+<br />
+@if (TicketRequest != null)
+{
+
+<EditForm Model="TicketRequest" OnValidSubmit="FormSave" Context="EditForm">
+    <DataAnnotationsValidator />
+
+    <div class="mb-3 d-flex flex-row align-items-center">
+        <label class="MTS-CSS-label-variant-02">Client ID :</label>
+        <InputSelect @bind-Value="SelectedClientId" class="form-control ml-3 w-25 MTS-CSS-dropDownList">
+
+            @foreach (var client in clients)
+                {
+                <option value="@client.Id"> @client.Name</option>
+
+                }
+        </InputSelect>
+    </div>
+
+    <br />
+
+    <div class="d-flex flex-row align-items-center">
+        <label class="MTS-CSS-label-variant-04">ID</label>
+        <InputText class="form-control MTS-CSS-inputText" style="width:190px; float:left;margin:5px;" placeholder="Name" @bind-Value="TicketID" />
+        <ValidationMessage For="@(() => TicketRequest.Id)" />
+    </div><br />
+    <div class="d-flex flex-row align-items-center">
+        <label class="MTS-CSS-label-variant-04">Date Created</label><br />
+        <InputText class="form-control MTS-CSS-inputText" style="width:190px; float:left;margin:5px;" placeholder="Description" @bind-Value="TicketDate" />
+        <ValidationMessage For="@(() => TicketRequest.DateCreated)" />
+    </div>
+    <br />
+    <div class="d-flex flex-row align-items-center">
+        <label class="MTS-CSS-label-variant-04">Created By</label><br />
+        <InputText class="form-control MTS-CSS-inputText" style="width:190px; float:left;margin:5px;" placeholder="Description" @bind-Value="TicketRequest.CreatedBy" />
+        <ValidationMessage For="@(() => TicketRequest.CreatedBy)" />
+    </div>
+    <br />
+    <div class="d-flex flex-row align-items-center">
+        <label class="MTS-CSS-label-variant-04">Description</label><br />
+        <InputText class="form-control MTS-CSS-inputText" style="width:190px; float:left;margin:5px;" placeholder="Description" @bind-Value="TicketRequest.Description" />
+        <ValidationMessage For="@(() => TicketRequest.Description)" />
+    </div>
+    <br />
+    @*<label class="col-form-label" style="display:inline-block; text-align:right">ID</label><br />
+        <label class="col-form-label" style="display:inline-block; text-align:right" >@SysID</label><br />*@
+
+    @*<label class="MTS-CSS-label-variant-04">Status</label> &nbsp;
+
+    <label class="MTS-CSS-toggleSwitchContainer">
+
+        <InputCheckbox class="MTS-CSS-checkBox" @bind-Value="SystemIsEnabled" />
+
+        <span class="MTS-CSS-slider"></span>
+
+    </label>*@
+
+    @*<div class="d-flex flex-row mt-3">
+        <button style="margin-right: 5%; " class="btn btn-sm text-white MTS-CSS-button-variant-01" type="submit">Save</button> &nbsp;
+        <button style="margin-left: 5%; " class="btn btn-sm text-white MTS-CSS-button-variant-04" type="button" @onclick="@NewSystemCancel">Cancel</button>
+
+    </div>*@
+
+</EditForm>
+
+    <style>
+        button {
+            width: 13%;
+        }
+    </style>
+
+}
+
