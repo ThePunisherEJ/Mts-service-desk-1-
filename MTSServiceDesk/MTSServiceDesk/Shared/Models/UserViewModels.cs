@@ -11,7 +11,9 @@ namespace MTS.ServiceDesk.Shared.Models
         public string UserName { get; set; }
         //public Dictionary<string, string> Claims { get; set; }
         public List<string[]> Claims { get; set; }
-
+        public string UserId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
     }
 
     public static class SecurityRoles

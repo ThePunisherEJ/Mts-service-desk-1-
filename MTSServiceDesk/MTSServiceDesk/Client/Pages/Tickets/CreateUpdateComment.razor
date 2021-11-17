@@ -1,0 +1,44 @@
+﻿@page "/CreateUpdateComment/{ClientId:int}/{TicketId:int}/{CommentId:int}"
+@inherits CreateUpdateCommentBase
+
+@if (CommentId > 0)
+{
+    <h2 class="font-weight-bold mb-3">Edit Comment</h2>
+}
+else
+{<h2 class="font-weight-bold mb-3">New Comment</h2>}
+<br />
+@if (TicketCommentRequest != null)
+{
+
+    <EditForm Model="TicketCommentRequest" OnValidSubmit="FormSave" Context="EditForm">
+        <DataAnnotationsValidator />
+
+        <label class="MTS-CSS-label-variant-02">Comment :</label> <br />
+
+        <InputText class="form-control MTS-CSS-inputText" style="width:190px; float:left;margin:5px;" placeholder="Comment" @bind-Value="TicketCommentRequest.Comment" /><br /> <br />
+
+        <br />
+       
+            <button class="btn btn-sm text-white MTS-CSS-button-variant-01" type="submit">Save</button> &nbsp;
+            <button  class="btn btn-sm text-white MTS-CSS-button-variant-04" type="button" @onclick="@NewCommentCancel">Cancel</button>
+                
+            
+
+        
+
+
+
+
+
+
+
+
+
+    </EditForm>
+    <style>
+        button {
+            width: 13%;
+        }
+    </style>
+}
