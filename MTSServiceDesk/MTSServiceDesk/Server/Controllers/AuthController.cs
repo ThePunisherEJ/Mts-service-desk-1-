@@ -71,12 +71,29 @@ namespace MTS.ServiceDesk.Server.Controllers
         [HttpGet("currentuserinfo")]
         public CurrentUser CurrentUserInfo()
         {
+            string tmpUserId = "";
+            string tmpFName = "";
+            string tmpLName = "";
+            bool tmpIsAdmin = false;
+
+            if (User.Identity.IsAuthenticated)
+            {
+                ApplicationUser user = _userManager.FindByNameAsync(User.Identity.Name).GetAwaiter().GetResult();
+                tmpUserId = user.Id;
+                tmpFName = user.FirstName;
+                tmpLName = user.LastName;
+                tmpIsAdmin = User.IsInRole("SysAdmin");
+            }
             return new CurrentUser
             {
                 IsAuthenticated = User.Identity.IsAuthenticated,
                 UserName = User.Identity.Name,
                 //Claims = User.Claims.ToDictionary(c => c.Type, c => c.Value)
-                Claims = User.Claims.Select(x => new string[2] { x.Type, x.Value }).ToList()
+                Claims = User.Claims.Select(x => new string[2] { x.Type, x.Value }).ToList(),
+                UserId = tmpUserId,
+                FirstName = tmpFName,
+                LastName = tmpLName
+                
 
             };
         }

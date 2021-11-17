@@ -24,7 +24,19 @@ else
                 }
 
         </InputSelect> <br />
-    </div> 
+    </div>
+    <div class="mb-3 d-flex flex-row align-items-center">
+        <label class="MTS-CSS-label-variant-02"> Status: </label>
+        <InputSelect class="form-control ml-3 w-25 MTS-CSS-dropDownList" @bind-Value="SelectedStatusID">
+
+            @foreach (var tstatus in TicketStatus)
+                {
+                <option value="@tstatus.Id"> @tstatus.Name</option>
+
+                }
+
+        </InputSelect> <br />
+    </div>
     <label class="MTS-CSS-label-variant-04">
         New Ticket
         <button @onclick="@NewTicketClick" class="MTS-CSS-iconButton"><span style="color: rgb(0, 167, 157)"> <i class="fas fa-plus-circle" style="font-size: 14px;" /> </span></button>
@@ -39,24 +51,30 @@ else
                     <th class="text-white p-2">Description</th>
                     <th class="text-white p-2">Status</th>
                     <th class="text-white p-2">Created by</th>
-
+                    <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var tck in allTickets)
                 {
-                    <tr class="MTS-CSS-tableRow">
-                        <td>@tck.Id</td>
-                        <td>@tck.SystemName</td>
-                        <td>@tck.Description</td>
-                        <td>@tck.StatusName</td>
-                        <td>@tck.CreatedByName</td>
+                <tr class="MTS-CSS-tableRow">
+                    <td>@tck.Id</td>
+                    <td>@tck.SystemName</td>
+                    <td>@tck.Description</td>
+                    <td>@tck.StatusName</td>
+                    <td>@tck.CreatedByName</td>
+                    <td>
+                        <button class="MTS-CSS-iconButton" style="float:right; margin:5px" @onclick="()=>UpdateTicketClick(tck.ClientId, tck.Id)"> <span style="color: rgb(60, 90, 108)"> <i class="far fa-edit" style="font-size: 14px;" /> </span></button>
+                    </td>
+                    <td>
+                        <button class="MTS-CSS-button-variant-01" style="float:right;margin:5px" @onclick="()=>ViewTicketClick(tck.ClientId, tck.Id)">View Ticket</button>
+                    </td>
 
 
 
 
-
-                    </tr>
+                </tr>
                 }
             </tbody>
         </table>

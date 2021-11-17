@@ -54,11 +54,11 @@ namespace MTS.ServiceDesk.Shared.Models
     public class TicketCommentCreateUpdateRequest
     {
         public int Id { get; set; }
-        public DateTime DateCreated { get; set; }
+        //public DateTime DateCreated { get; set; }
         public string CreatedBy { get; set; }
         public int TicketId { get; set; }
         public string Comment { get; set; }
-        public string CreatedByName { get; set; }
+        //public string CreatedByName { get; set; }
 
     }
 

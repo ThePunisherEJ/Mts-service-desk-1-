@@ -15,25 +15,25 @@ namespace MTS.ServiceDesk.Client.Pages.Tickets
     {
         #region Properties And Parameters
         protected List<TicketDetails> allTickets;
+        protected List<TicketStatusDetails> TicketStatus;
         protected List<SupportClientDetails> clients = new List<SupportClientDetails>();
         private int _selectedClientId;
-        #endregion
-        #region DI
-        [Inject] protected HttpClient httpClient { get; set; }
-        [Inject] protected NavigationManager navigationManager { get; set; }
-        #endregion
-
-
-
-        protected override async Task OnInitializedAsync()
+        private int _selectedStatusId;
+        
+        public string SelectedStatusID
         {
-            await PopulateClientList();
-            SelectedClientId = clients.FirstOrDefault().Id.ToString();
-            allTickets = await httpClient.GetFromJsonAsync<List<TicketDetails>>("api/ticket/Get-Tickets-For-Client/1/0");
-
-            //return base.OnInitializedAsync();
+            get
+            {
+                return _selectedStatusId.ToString();
+            }
+            set
+            {
+                _selectedStatusId = int.Parse(value);
+                //PopulateTstatusList();
+                PopulateTicketList();
+            }
         }
-        public string SelectedClientId
+        public  string SelectedClientId
         {
             get
 
@@ -49,10 +49,42 @@ namespace MTS.ServiceDesk.Client.Pages.Tickets
             }
 
         }
+        #endregion
+        #region DI
+        [Inject] protected HttpClient httpClient { get; set; }
+        [Inject] protected NavigationManager navigationManager { get; set; }
+        #endregion
+
+
+
+        protected override async Task OnInitializedAsync()
+        {
+            await PopulateClientList();
+            await PopulateTstatusList();
+            _selectedClientId = clients.FirstOrDefault().Id;
+            _selectedStatusId = 0;
+           await PopulateTicketList();
+            //SelectedStatusID = allTickets.FirstOrDefault().StatusId.ToString();
+            //allTickets = await httpClient.GetFromJsonAsync<List<TicketDetails>>("api/ticket/Get-Tickets-For-Client/" + SelectedClientId);
+
+            //return base.OnInitializedAsync();
+        }
+      
         protected async Task PopulateTicketList()
         {
-            allTickets = await httpClient.GetFromJsonAsync<List<TicketDetails>>("api/ticket/Get-Tickets-For-Client/" + SelectedClientId);
+            allTickets = await httpClient.GetFromJsonAsync<List<TicketDetails>>("api/ticket/Get-Tickets-For-Client/" + SelectedClientId + "/"  + SelectedStatusID);
+            //PopulateTstatusList();
             StateHasChanged();
+        }
+        protected async Task PopulateTstatusList()
+        { TicketStatusDetails allStatus = new TicketStatusDetails();
+            allStatus.Id = 0;
+            allStatus.Name = "All";
+            
+            TicketStatus = await httpClient.GetFromJsonAsync<List<TicketStatusDetails>>("api/ticket/Get-Ticket-Statuses");
+            TicketStatus.Add(allStatus);
+            
+
         }
         protected async Task PopulateClientList()
         {
@@ -61,7 +93,17 @@ namespace MTS.ServiceDesk.Client.Pages.Tickets
         }
         protected void NewTicketClick()
         {
-            navigationManager.NavigateTo("/CreateUpdateTicket" /*+ "/"+ SelectedClientId*/ + "/0");
+            navigationManager.NavigateTo("/CreateUpdateTicket" + "/" + SelectedClientId + "/0");
         }
+        protected void UpdateTicketClick(int clientId, int ticketId)
+        {
+            navigationManager.NavigateTo("/CreateUpdateTicket" + "/" + clientId + "/"+ ticketId);
+        }
+        protected void ViewTicketClick(int clientId, int ticketId)
+        {
+            navigationManager.NavigateTo("/TicketView" + "/" + SelectedClientId + "/" + ticketId);
+        }
+
+
     }
 }

@@ -416,6 +416,35 @@ namespace MTS.ServiceDesk.Server.Controllers
             }
         }
 
+        [Authorize]
+        [HttpGet("Get-Comment-byid/{CommentId}")]
+        public async Task<IActionResult> GetCommentById(string commentId)
+        {
+            try
+            {
+               TicketCommentDetails searchResult = (from comm in _applicationDBContext.TicketComment.Where(comm => comm.Id == int.Parse(commentId))
+
+                                                           select new TicketCommentDetails
+                                                           {
+                                                               Id = comm.Id,
+                                                               CreatedBy = comm.CreatedBy,
+                                                               CreatedByName = "",
+                                                               DateCreated = comm.DateCreated,
+                                                               Comment = comm.Comment,
+                                                               TicketId = comm.TicketId
+                                                           }).FirstOrDefault();
+
+                List<ApplicationUser> users = _userManager.Users.ToList();
+
+                searchResult.CreatedByName =  users.Find(u => u.Id == searchResult.CreatedBy).FirstName + " " + users.Find(u => u.Id == searchResult.CreatedBy).LastName;
+
+                return Ok(searchResult);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
 
         [Authorize]
         [HttpPost("Create-Ticket")]
@@ -453,6 +482,7 @@ namespace MTS.ServiceDesk.Server.Controllers
         {
             try
             {
+
                 SupportTicket updTicket = _applicationDBContext.SupportTicket.Where(st => st.Id == updTicketReq.Id).FirstOrDefault();
 
                 updTicket.SystemId = updTicketReq.SystemId;
@@ -504,5 +534,34 @@ namespace MTS.ServiceDesk.Server.Controllers
             }
 
         }
+
+
+        [Authorize]
+        [HttpPost("Update-Comment")]
+        public async Task<IActionResult> UpdateTicketCommentAsync(TicketCommentCreateUpdateRequest updCommentReq)
+        {
+            try
+            {
+                TicketComment searchResult =  _applicationDBContext.TicketComment.Where(comm => comm.Id == updCommentReq.Id).FirstOrDefault();
+               
+
+                
+              searchResult.Comment = updCommentReq.Comment;
+
+
+
+                _applicationDBContext.TicketComment.Update(searchResult);
+                await _applicationDBContext.SaveChangesAsync();
+              
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+
+        }
+
     }
 }
